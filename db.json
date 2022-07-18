@@ -1,0 +1,12 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "She Who Became The Sun",
+      "author": "Shelley Parker-Chan",
+      "description": "blabla",
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg",
+      "price": 15
+    }
+  ]
+}

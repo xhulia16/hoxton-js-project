@@ -36,3 +36,16 @@ ul {
  gap: 30px;
 
 }
+.book-cover{
+  width:150px;
+}
+.books-display{
+  display: grid;
+  width:400px;
+  padding:30px;
+}
+
+.main-page{
+  display: grid;
+  justify-content: center;
+}
