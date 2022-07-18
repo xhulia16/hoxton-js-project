@@ -1,6 +1,21 @@
 import './style.css'
 
-let state = {}
+type Book={
+author: string, 
+title: string, 
+description:string, 
+cover: string
+}
+
+type State={
+books: Book[]
+}
+
+let state:State = {
+  books:[]
+}
+
+
 
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -85,5 +100,3 @@ function render() {
 }
 
 render()
-
-console.log('it works')
