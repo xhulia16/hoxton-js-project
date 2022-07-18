@@ -1,22 +1,38 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: 0;
 }
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
+.header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 
-.header{
- height: 70px;
   background-color: blueviolet;
+  padding: 30px;
 }
 
-.main-page{
+.header__left-pane{
+  display: grid;
+justify-content: left;
+place-items: center;
+}
+
+.header__right-pane{
+  display: grid;
+justify-content: right;
+place-items: center;
+}
+
+.main-page {
   height: 500px;
   background-color: rgb(219, 181, 255);
+}
+
+ul {
+  list-style: none;
+  display: grid;
+ grid-auto-flow: column;
+ gap: 30px;
+
 }
