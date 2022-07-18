@@ -4,7 +4,8 @@ type Book = {
   author: string,
   title: string,
   description: string,
-  cover: string
+  cover: string, 
+  price: number
 }
 
 type State = {
@@ -15,7 +16,17 @@ let state: State = {
   books: []
 }
 
+function getMoviedata() {
+  fetch('http://localhost:3005/books')
+    .then(resp => resp.json())
+    .then(dataFromServer => {
+      state.books = dataFromServer
+      render()
+    })
+}
 
+getMoviedata()
+window.state=state
 
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -72,6 +83,8 @@ function renderBookList() {
   let mainText = document.createElement('h3')
   mainText.textContent = 'The books everyone is talking about'
 
+  for(let item of state.books){
+
   let displayBooksEl = document.createElement('div')
   displayBooksEl.className = 'books-display'
 
@@ -79,24 +92,24 @@ function renderBookList() {
 
   let bookCoverEl = document.createElement('img')
   bookCoverEl.className = 'book-cover'
-  bookCoverEl.src = 'https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg'
+  bookCoverEl.src = item.cover
 
 
   let bookTitleEl = document.createElement("h3")
-  bookTitleEl.textContent = 'She Who Became The Sun'
+  bookTitleEl.textContent = item.title
 
   let bookAuthorEl = document.createElement("h4")
-  bookAuthorEl.textContent = 'Shelley Parker-Chan'
+  bookAuthorEl.textContent = item.author
 
   let bookPriceEl = document.createElement("h4")
-  bookPriceEl.textContent = '£15'
+  bookPriceEl.textContent = `£ ${item.price}`
 
   bookItemEl.append(bookCoverEl, bookTitleEl, bookAuthorEl, bookPriceEl)
   displayBooksEl.append(bookItemEl)
   mainPageEl.append(mainText, displayBooksEl)
   mainEl.append(mainPageEl)
 
-
+}
 }
 
 function renderFooter() {
