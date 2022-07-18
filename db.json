@@ -7,6 +7,22 @@
       "description": "blabla",
       "cover": "https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg",
       "price": 15
+    },
+    {
+      "id": 2,
+      "title": "She Who Became The Sun",
+      "author": "Shelley Parker-Chan",
+      "description": "blabla",
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg",
+      "price": 15
+    },
+    {
+      "id": 3,
+      "title": "She Who Became The Sun",
+      "author": "Shelley Parker-Chan",
+      "description": "blabla",
+      "cover": "https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg",
+      "price": 15
     }
   ]
 }

@@ -40,12 +40,13 @@ ul {
   width:150px;
 }
 .books-display{
-  display: grid;
-  width:400px;
-  padding:30px;
+  display: grid;  
+  padding:20px;
 }
 
 .main-page{
   display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(5, 1fr);
   justify-content: center;
 }

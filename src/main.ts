@@ -4,7 +4,7 @@ type Book = {
   author: string,
   title: string,
   description: string,
-  cover: string, 
+  cover: string,
   price: number
 }
 
@@ -26,7 +26,7 @@ function getMoviedata() {
 }
 
 getMoviedata()
-window.state=state
+window.state = state
 
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -80,36 +80,36 @@ function renderBookList() {
   let mainPageEl = document.createElement('div')
   mainPageEl.className = 'main-page'
 
-  let mainText = document.createElement('h3')
-  mainText.textContent = 'The books everyone is talking about'
+  for (let item of state.books) {
 
-  for(let item of state.books){
+    let displayBooksEl = document.createElement('div')
+    displayBooksEl.className = 'books-display'
 
-  let displayBooksEl = document.createElement('div')
-  displayBooksEl.className = 'books-display'
+    let bookItemEl = document.createElement('div')
 
-  let bookItemEl = document.createElement('div')
-
-  let bookCoverEl = document.createElement('img')
-  bookCoverEl.className = 'book-cover'
-  bookCoverEl.src = item.cover
+    let bookCoverEl = document.createElement('img')
+    bookCoverEl.className = 'book-cover'
+    bookCoverEl.src = item.cover
 
 
-  let bookTitleEl = document.createElement("h3")
-  bookTitleEl.textContent = item.title
+    let bookTitleEl = document.createElement("h3")
+    bookTitleEl.textContent = item.title
 
-  let bookAuthorEl = document.createElement("h4")
-  bookAuthorEl.textContent = item.author
+    let bookAuthorEl = document.createElement("h4")
+    bookAuthorEl.textContent = item.author
 
-  let bookPriceEl = document.createElement("h4")
-  bookPriceEl.textContent = `£ ${item.price}`
+    let bookPriceEl = document.createElement("h4")
+    bookPriceEl.textContent = `£ ${item.price}`
 
-  bookItemEl.append(bookCoverEl, bookTitleEl, bookAuthorEl, bookPriceEl)
-  displayBooksEl.append(bookItemEl)
-  mainPageEl.append(mainText, displayBooksEl)
+    bookItemEl.append(bookCoverEl, bookTitleEl, bookAuthorEl, bookPriceEl)
+    displayBooksEl.append(bookItemEl)
+
+    mainPageEl.append(displayBooksEl)
+  }
+
   mainEl.append(mainPageEl)
 
-}
+
 }
 
 function renderFooter() {
