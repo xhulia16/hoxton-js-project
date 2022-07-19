@@ -63,6 +63,38 @@
       "description": "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life she wants. She’s come a long way from the small town in Maine where she grew up — she graduated from college, moved to Boston...",
       "cover": "./src/image/ItEnds.jpg",
       "price": 12.5
+    },
+    {
+      "id": 9,
+      "title": "Klara and the Sun",
+      "author": "Kazuo Ishiguro",
+      "description": "From her place in the store, Klara, an Artificial Friend with outstanding observational qualities, watches carefully the behavior of those who come in to browse, and of those who pass on the street outside. She remains hopeful that a customer will soon choose her, but when the possibility emerges that her circumstances may change forever, Klara is warned not to invest too much in the promises of humans.",
+      "cover": "./src/image/Klara.jpg",
+      "price": 17.5
+    }, 
+    {
+      "id": 10,
+      "title": "No Longer Human",
+      "author": "Osamu Dazai",
+      "description": "Osamu Dazai's No Longer Human, this leading postwar Japanese writer's second novel, tells the poignant and fascinating story of a young man who is caught between the breakup of the traditions of a northern Japanese aristocratic family and the impact of Western ideas. In consequence, he feels himself 'disqualified from being human' (a literal translation of the Japanese title).",
+      "cover": "./src/image/human.jpg",
+      "price": 17.5
+    }, 
+    {
+      "id": 11,
+      "title": "The Fall",
+      "author": "Albert Camus",
+      "description": "Jean-Baptiste Clamence is a soul in turmoil. Over several drunken nights in an Amsterdam bar, he regales a chance acquaintance with his story. From this successful former lawyer and seemingly model citizen a compelling, self-loathing catalogue of guilt, hypocrisy and alienation pours forth.",
+      "cover": "./src/image/fall.jpg",
+      "price": 14.5
+    }, 
+    {
+      "id": 12,
+      "title": "Quicksand",
+      "author": " Jun'ichirō Tanizaki",
+      "description": "From one of the greatest writers of twentieth-century Japan comes a silkily nuanced novel of erotic gamesmanship and obsession. The voice--cultured, ingenuous, and with a touch of coquetterie--is that of Sonoko Kakiuchi, an Osaka lady of good family married to a dully respectable lawyer.",
+      "cover": "./src/image/quicksand.jpg",
+      "price": 12.5
     }
   ]
 }
