@@ -1,6 +1,6 @@
 import './style.css'
 
-type Book = {
+type Books = {
   author: string,
   title: string,
   description: string,
@@ -9,11 +9,17 @@ type Book = {
 }
 
 type State = {
-  books: Book[]
+  books: Books[]
+  fillter: String
+  show: 'books' | 'details' 
+  selectedBook: Books | null
 }
 
 let state: State = {
-  books: []
+  books: [],
+  fillter:"",
+  show: "books",
+  selectedBook: null
 }
 
 function getBookdata() {
@@ -27,7 +33,23 @@ function getBookdata() {
 
 // getBookdata()
 // window.state = state
+function getFilteredBooks () {
+  return state.books.filter(
+    book =>
+      book.author.toLowerCase().includes(state.fillter.toLowerCase()) ||
+      book.title.toLowerCase().includes(state.fillter.toLowerCase()) 
+  )
+}
 
+function filterBook (newFilter: string) {
+  state.fillter = newFilter
+state.show="books"
+state.selectedBook = null
+}
+function selectBook (book: Books) {
+  state.show = 'details'
+  state.selectedBook= book
+}
 function renderHeader() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
@@ -57,6 +79,19 @@ function renderHeader() {
   let searchBarInput = document.createElement('input')
   searchBarInput.name = 'search-bar'
   searchBarInput.placeholder = 'Search here'
+
+
+  if ( searchBarInput) {
+    searchBarInput.addEventListener('keydown', function (event) {
+      if ( searchBarInput == null) return
+      if (event.key !== 'Enter') return
+
+      filterBook( searchBarInput.value)
+      render()
+    })
+  }
+
+
   let submitBtn = document.createElement('button')
   submitBtn.textContent = 'submit'
 
@@ -72,7 +107,27 @@ function renderHeader() {
   headerEl.append(leftPaneEl, rightPaneEl)
   mainEl.append(headerEl)
 }
+function renderBookDetails(){
+  let mainEl = document.querySelector('#app')
+  if (mainEl === null) return
+  let divEl=document.createElement("div")
+ 
+  // for(let book of state.books){ 
+    let main1El=document.createElement("main")
+  main1El.className=("main__detailBook")
 
+  let imgEl=document.createElement("img")
+  imgEl.src=state.selectedBook?.cover
+  imgEl.width=300
+  imgEl.alt=""
+
+  let pEl=document.createElement("p")
+  pEl.textContent=state.selectedBook?.description
+main1El.append(imgEl,pEl)
+divEl.append(main1El)
+  // }
+  mainEl.append(divEl)
+}
 function renderBookList() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
@@ -89,6 +144,10 @@ function renderBookList() {
 
     for (let item of state.books) {
     let bookItemEl = document.createElement('div')
+    bookItemEl.addEventListener('click', function () {
+      selectBook (item)
+      render()
+    })
 
     let bookCoverEl = document.createElement('img')
     bookCoverEl.className = 'book-cover'
@@ -133,12 +192,12 @@ function render() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
   mainEl.textContent = ''
-
+  if (state.show === 'books'){
   renderHeader()
-
   renderBookList()
-
   renderFooter()
+}
+  if (state.show === 'details')  renderHeader(), renderBookDetails()
 }
 
 render() 
