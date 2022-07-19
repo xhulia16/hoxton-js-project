@@ -115,14 +115,33 @@ function renderBookDetails() {
   let main1El = document.createElement("main")
   main1El.className = ("main__detailBook")
 
+  let imgDiv = document.createElement('div')
   let imgEl = document.createElement("img")
   imgEl.src = state.selectedBook?.cover
   imgEl.width = 300
   imgEl.alt = ""
 
-  let pEl = document.createElement("p")
-  pEl.textContent = state.selectedBook?.description
-  main1El.append(imgEl, pEl)
+  imgDiv.append(imgEl)
+
+  let bookDetailsDiv=document.createElement('div')
+  bookDetailsDiv.className='book-details'
+
+  let singleBookTitle=document.createElement('h2')
+  singleBookTitle.textContent=`Title: ${state.selectedBook?.title}`
+
+  let singleBookAuthor=document.createElement('h3')
+  singleBookAuthor.textContent=`Author: ${state.selectedBook?.author}`
+
+  let singleBookPrice=document.createElement('h3')
+  singleBookPrice.textContent=`Price: £${state.selectedBook?.price}`
+
+  let singleBookDescription = document.createElement("p")
+  singleBookDescription.className='book-description__paragraph'
+  singleBookDescription.textContent = state.selectedBook?.description
+
+  bookDetailsDiv.append(singleBookTitle,singleBookAuthor,singleBookPrice ,singleBookDescription )
+
+  main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
   // }
   mainEl.append(divEl)
