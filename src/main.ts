@@ -11,13 +11,13 @@ type Books = {
 type State = {
   books: Books[]
   fillter: String
-  show: 'books' | 'details' 
+  show: 'books' | 'details'
   selectedBook: Books | null
 }
 
 let state: State = {
   books: [],
-  fillter:"",
+  fillter: "",
   show: "books",
   selectedBook: null
 }
@@ -31,36 +31,25 @@ function getBookdata() {
     })
 }
 
-function getBooksforTitle(){
-  fetch(`http://localhost:3005/books?title_like=${state.books}`)
-  .then(resp => resp.json())
-  .then(dataFromServer => {
-    state.books = dataFromServer
-    render()
-  })
-}
 // getBookdata()
-<<<<<<< HEAD
-window.state = state
-=======
-// window.state = state
-function getFilteredBooks () {
+//window.state = state
+
+function getFilteredBooks() {
   return state.books.filter(
     book =>
       book.author.toLowerCase().includes(state.fillter.toLowerCase()) ||
-      book.title.toLowerCase().includes(state.fillter.toLowerCase()) 
+      book.title.toLowerCase().includes(state.fillter.toLowerCase())
   )
 }
->>>>>>> 4480070c29957929cc7e548ff2b14c8c80a39ab2
 
-function filterBook (newFilter: string) {
+function filterBook(newFilter: string) {
   state.fillter = newFilter
-state.show="books"
-state.selectedBook = null
+  state.show = "books"
+  state.selectedBook = null
 }
-function selectBook (book: Books) {
+function selectBook(book: Books) {
   state.show = 'details'
-  state.selectedBook= book
+  state.selectedBook = book
 }
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -89,44 +78,30 @@ function renderHeader() {
   let rightUlEl = document.createElement('ul')
   let searchBarLi = document.createElement('li')
 
-  let searchBookTitleForm=document.createElement('form')
-  searchBookTitleForm.id='search-book-form'
-  searchBookTitleForm.autocomplete='off'
-  searchBookTitleForm.addEventListener('submit', function(event){
-    event.preventDefault()
-    let title= searchBookTitleForm['search-book'].value
-    console.log(title)
-  })
-
   let searchBarInput = document.createElement('input')
-  searchBarInput.id='search-book'
+  searchBarInput.id = 'search-book'
   searchBarInput.name = 'search-bar'
   searchBarInput.placeholder = 'Search here'
 
-<<<<<<< HEAD
-=======
 
-  if ( searchBarInput) {
+  if (searchBarInput) {
     searchBarInput.addEventListener('keydown', function (event) {
-      if ( searchBarInput == null) return
+      if (searchBarInput == null) return
       if (event.key !== 'Enter') return
 
-      filterBook( searchBarInput.value)
+      filterBook(searchBarInput.value)
       render()
     })
   }
 
 
->>>>>>> 4480070c29957929cc7e548ff2b14c8c80a39ab2
   let submitBtn = document.createElement('button')
   submitBtn.textContent = 'submit'
 
   let userProfileEL = document.createElement('li')
   userProfileEL.textContent = '👤'
 
-  searchBookTitleForm.append(searchBarInput, submitBtn)
-
-  searchBarLi.append(searchBookTitleForm)
+  searchBarLi.append(searchBarInput, submitBtn)
   rightUlEl.append(searchBarLi, userProfileEL)
   rightNavEl.append(rightUlEl)
   rightPaneEl.append(rightNavEl)
@@ -135,27 +110,28 @@ function renderHeader() {
   headerEl.append(leftPaneEl, rightPaneEl)
   mainEl.append(headerEl)
 }
-function renderBookDetails(){
+function renderBookDetails() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
-  let divEl=document.createElement("div")
- 
+  let divEl = document.createElement("div")
+
   // for(let book of state.books){ 
-    let main1El=document.createElement("main")
-  main1El.className=("main__detailBook")
+  let main1El = document.createElement("main")
+  main1El.className = ("main__detailBook")
 
-  let imgEl=document.createElement("img")
-  imgEl.src=state.selectedBook?.cover
-  imgEl.width=300
-  imgEl.alt=""
+  let imgEl = document.createElement("img")
+  imgEl.src = state.selectedBook?.cover
+  imgEl.width = 300
+  imgEl.alt = ""
 
-  let pEl=document.createElement("p")
-  pEl.textContent=state.selectedBook?.description
-main1El.append(imgEl,pEl)
-divEl.append(main1El)
+  let pEl = document.createElement("p")
+  pEl.textContent = state.selectedBook?.description
+  main1El.append(imgEl, pEl)
+  divEl.append(main1El)
   // }
   mainEl.append(divEl)
 }
+
 function renderBookList() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
@@ -163,17 +139,19 @@ function renderBookList() {
   let mainPageEl = document.createElement('div')
   mainPageEl.className = 'main-page'
 
-  let mainPageText=document.createElement('h2')
-  mainPageText.className='main-page__text'
-  mainPageText.textContent='Books everyone is talking about'
+  let mainPageText = document.createElement('h2')
+  mainPageText.className = 'main-page__text'
+  mainPageText.textContent = 'Books everyone is talking about'
 
-    let displayBooksEl = document.createElement('div')
-    displayBooksEl.className = 'books-display'
+  let displayBooksEl = document.createElement('div')
+  displayBooksEl.className = 'books-display'
 
-    for (let item of state.books) {
+  let filteredBooks = getFilteredBooks()
+
+  for (let item of filteredBooks) {
     let bookItemEl = document.createElement('div')
     bookItemEl.addEventListener('click', function () {
-      selectBook (item)
+      selectBook(item)
       render()
     })
 
@@ -195,9 +173,9 @@ function renderBookList() {
     displayBooksEl.append(bookItemEl)
 
     mainPageEl.append(mainPageText, displayBooksEl)
-  
 
-  mainEl.append(mainPageEl)
+
+    mainEl.append(mainPageEl)
 
   }
 
@@ -220,13 +198,13 @@ function render() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
   mainEl.textContent = ''
-  if (state.show === 'books'){
-  renderHeader()
-  renderBookList()
-  renderFooter()
-}
-  if (state.show === 'details')  renderHeader(), renderBookDetails()
+  if (state.show === 'books') {
+    renderHeader()
+    renderBookList()
+    renderFooter()
+  }
+  if (state.show === 'details') renderHeader(), renderBookDetails()
 }
 
-render() 
+render()
 getBookdata()
