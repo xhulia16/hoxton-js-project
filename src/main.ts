@@ -80,6 +80,9 @@ function renderBookList() {
   let mainPageEl = document.createElement('div')
   mainPageEl.className = 'main-page'
 
+  let mainPageText=document.createElement('h2')
+  mainPageText.className='main-page__text'
+  mainPageText.textContent='Books everyone is talking about'
 
     let displayBooksEl = document.createElement('div')
     displayBooksEl.className = 'books-display'
@@ -104,7 +107,7 @@ function renderBookList() {
     bookItemEl.append(bookCoverEl, bookTitleEl, bookAuthorEl, bookPriceEl)
     displayBooksEl.append(bookItemEl)
 
-    mainPageEl.append(displayBooksEl)
+    mainPageEl.append(mainPageText, displayBooksEl)
   
 
   mainEl.append(mainPageEl)
