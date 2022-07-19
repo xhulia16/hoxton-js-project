@@ -1,16 +1,19 @@
 import './style.css'
 
+type Review = string
+
 type Book = {
   author: string,
   title: string,
   description: string,
   cover: string,
   price: number
+  reviews: Review[]
 }
 
 type State = {
   books: Book[]
-  fillter: String
+  fillter: string
   show: 'books' | 'details'
   selectedBook: Book | null
 }
@@ -32,7 +35,7 @@ function getBookdata() {
 }
 
 // getBookdata()
-//window.state = state
+window.state = state
 
 function getFilteredBooks() {
   return state.books.filter(
@@ -47,7 +50,7 @@ function filterBook(newFilter: string) {
   state.show = "books"
   state.selectedBook = null
 }
-function selectBook(book: Books) {
+function selectBook(book: Book) {
   state.show = 'details'
   state.selectedBook = book
 }
@@ -80,9 +83,9 @@ function renderHeader() {
   let homeBtnLi = document.createElement('li')
   let homeBtn = document.createElement('button')
   homeBtn.textContent = 'Home'
-  homeBtn.type='submit'
-  homeBtn.addEventListener('click', function(){
-    state.show="books"
+  homeBtn.type = 'submit'
+  homeBtn.addEventListener('click', function () {
+    state.show = "books"
     render()
   })
 
@@ -121,6 +124,7 @@ function renderHeader() {
 function renderBookDetails() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
+  if (state.selectedBook === null) return
   let divEl = document.createElement("div")
 
   // for(let book of state.books){ 
@@ -151,7 +155,35 @@ function renderBookDetails() {
   singleBookDescription.className = 'book-description__paragraph'
   singleBookDescription.textContent = state.selectedBook?.description
 
-  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription)
+  let reviewFormEl = document.createElement('form')
+  reviewFormEl.addEventListener('submit', function (event) {
+    event.preventDefault()
+    console.log(reviewInput.value)
+    //createReviewOnServer(reviewInput.value)
+  })
+
+  let reviewInput = document.createElement('input')
+  reviewInput.name = 'review'
+  reviewInput.placeholder = 'Add a review'
+
+  let reviewBtn = document.createElement('button')
+  reviewBtn.type = 'submit'
+  reviewBtn.textContent = 'Add Review'
+
+  let reviewUl = document.createElement('ul')
+
+  for (let review of state.selectedBook.reviews) {
+    let addedReview = document.createElement('li')
+    addedReview.textContent = review
+    reviewUl.append(addedReview)
+  }
+
+
+
+  reviewFormEl.append(reviewInput, reviewBtn)
+
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewFormEl, reviewUl)
+
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
@@ -211,26 +243,26 @@ function renderBookList() {
 function renderFooter() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
-  
-    let footerMainEl=document.createElement('div')
-    footerMainEl.className='footer'
-  
-    let contactUsEl=document.createElement('div')
-  
-    let contactUsUl=document.createElement('ul')
-    let websiteNameLi=document.createElement('li')
-    websiteNameLi.textContent='BookAL Library'
-    let phoneNumberLi=document.createElement('li')
-    phoneNumberLi.textContent='fake phone number here'
-    let addressLi=document.createElement('li')
-    addressLi.textContent='address goes here'
-  
-    contactUsUl.append(websiteNameLi, phoneNumberLi, addressLi)
-    contactUsEl.append(contactUsUl)
-  
-    mainEl.append(contactUsEl)
-  
-  }
+
+  let footerMainEl = document.createElement('div')
+  footerMainEl.className = 'footer'
+
+  let contactUsEl = document.createElement('div')
+
+  let contactUsUl = document.createElement('ul')
+  let websiteNameLi = document.createElement('li')
+  websiteNameLi.textContent = 'BookAL Library'
+  let phoneNumberLi = document.createElement('li')
+  phoneNumberLi.textContent = 'fake phone number here'
+  let addressLi = document.createElement('li')
+  addressLi.textContent = 'address goes here'
+
+  contactUsUl.append(websiteNameLi, phoneNumberLi, addressLi)
+  contactUsEl.append(contactUsUl)
+
+  mainEl.append(contactUsEl)
+
+}
 
 
 
