@@ -4,25 +4,65 @@
       "id": 1,
       "title": "She Who Became The Sun",
       "author": "Shelley Parker-Chan",
-      "description": "blabla",
-      "cover": "https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg",
+      "description": "In a famine-stricken village on a dusty yellow plain, two children are given two fates. A boy, greatness. A girl, nothingness…",
+      "cover": "./src/image/SheWho.jpg",
       "price": 15
     },
     {
       "id": 2,
-      "title": "She Who Became The Sun",
-      "author": "Shelley Parker-Chan",
-      "description": "blabla",
-      "cover": "https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg",
-      "price": 15
+      "title": "The Kite Runner",
+      "author": "Khaled Hosseini",
+      "description": "It tells the story of Amir, a young boy from the Wazir Akbar Khan district of Kabul. The story is set against a backdrop of ...",
+      "cover": "./src/image/TheKiteRunner.jpg",
+      "price": 10.25
     },
     {
       "id": 3,
-      "title": "She Who Became The Sun",
-      "author": "Shelley Parker-Chan",
-      "description": "blabla",
-      "cover": "https://images-na.ssl-images-amazon.com/images/I/91eXDiA8GwL.jpg",
-      "price": 15
+      "title": "Becoming",
+      "author": "Michelle Obama",
+      "description": "The main themes in Michelle Obama`s Becoming are dedication to personal growth and aspirations and persistence despite setbacks..",
+      "cover": "./src/image/becoming.jpg",
+      "price": 5.25
+    },
+    {
+      "id": 4,
+      "title": "A Thousand Splendid Suns",
+      "author": "Khaled Hosseini",
+      "description": "Mariam, an illegitimate teenager from Herat, is forced to marry a shoemaker from Kabul after a family tragedy. Laila, born   ...",
+      "cover": "./src/image/TheKiteRunner.jpg",
+      "price": 5.03
+    },
+    {
+      "id": 5,
+      "title": "The Three-Arched Bridge",
+      "author": "Ismail Kadare",
+      "description": "The book is a political parable that describes the construction of an important bridge on the Via Egnatia in Albanian territory in the Balkans from 1377–1378, shortly before the occupation by the Ottoman Empire began.Told by ...",
+      "cover": "./src/image/3ArchedBridge.jpg",
+      "price": 7.32
+    },
+    {
+      "id": 6,
+      "title": "The Night in Lisbon",
+      "author": "Erich Maria Remarque",
+      "description": "With the world slowly sliding into war, it is crucial that enemies of the Reich flee Europe at once. But so many routes are closed, and so much money is needed. Then ...",
+      "cover": "./src/image/TheNightLisbon.jpg",
+      "price": 8.2
+    },
+    {
+      "id": 7,
+      "title": "Big lovers do not wear a wedding dress",
+      "author": "Mitsi Valaka",
+      "description": "These are the love stories of the triangle, Sofia-Dioni-Kiveli. After losing her husband, Sofia learns that he had an extramarital affair. She is called Kiveli, a lawyer by profession, diametrically opposed to Sofian...",
+      "cover": "./src/image/BigLove.jpg",
+      "price": 9.4
+    },
+    {
+      "id": 8,
+      "title": "It Ends with Us",
+      "author": "Colleen Hoover",
+      "description": "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life she wants. She’s come a long way from the small town in Maine where she grew up — she graduated from college, moved to Boston...",
+      "cover": "./src/image/ItEnds.jpg",
+      "price": 12.5
     }
   ]
 }
