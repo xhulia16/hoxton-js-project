@@ -75,3 +75,9 @@ padding:60px
 .single-book_image{
   width:300px;
 }
+
+.reviews{
+  display: grid;
+  grid-auto-flow: row;
+  gap:5px;
+}

@@ -3,6 +3,7 @@ import './style.css'
 type Review = string
 
 type Book = {
+  id: number
   author: string,
   title: string,
   description: string,
@@ -25,6 +26,11 @@ let state: State = {
   selectedBook: null
 }
 
+
+function createReviewOnServer(review:string){
+  }
+  
+
 function getBookdata() {
   fetch('http://localhost:3005/books')
     .then(resp => resp.json())
@@ -35,7 +41,7 @@ function getBookdata() {
 }
 
 // getBookdata()
-window.state = state
+//window.state = state
 
 function getFilteredBooks() {
   return state.books.filter(
@@ -121,6 +127,7 @@ function renderHeader() {
   headerEl.append(leftPaneEl, rightPaneEl)
   mainEl.append(headerEl)
 }
+
 function renderBookDetails() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
@@ -171,6 +178,7 @@ function renderBookDetails() {
   reviewBtn.textContent = 'Add Review'
 
   let reviewUl = document.createElement('ul')
+  reviewUl.className='reviews'
 
   for (let review of state.selectedBook.reviews) {
     let addedReview = document.createElement('li')
@@ -178,12 +186,9 @@ function renderBookDetails() {
     reviewUl.append(addedReview)
   }
 
-
-
   reviewFormEl.append(reviewInput, reviewBtn)
 
   bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewFormEl, reviewUl)
-
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
