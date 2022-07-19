@@ -16,7 +16,7 @@ let state: State = {
   books: []
 }
 
-function getMoviedata() {
+function getBookdata() {
   fetch('http://localhost:3005/books')
     .then(resp => resp.json())
     .then(dataFromServer => {
@@ -25,7 +25,7 @@ function getMoviedata() {
     })
 }
 
-getMoviedata()
+getBookdata()
 window.state = state
 
 function renderHeader() {
