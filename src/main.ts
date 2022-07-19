@@ -85,11 +85,11 @@ function renderBookList() {
   let mainPageEl = document.createElement('div')
   mainPageEl.className = 'main-page'
 
-  for (let item of state.books) {
 
     let displayBooksEl = document.createElement('div')
     displayBooksEl.className = 'books-display'
 
+    for (let item of state.books) {
     let bookItemEl = document.createElement('div')
 
     let bookCoverEl = document.createElement('img')
@@ -110,10 +110,11 @@ function renderBookList() {
     displayBooksEl.append(bookItemEl)
 
     mainPageEl.append(displayBooksEl)
-  }
+  
 
   mainEl.append(mainPageEl)
 
+  }
 
 }
 
