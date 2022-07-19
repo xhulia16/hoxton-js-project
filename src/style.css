@@ -47,6 +47,10 @@ ul {
 
 .main-page{
   display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
+  grid-auto-flow: row;
+  justify-items: center;
+}
+
+.main-page__text{
+padding-top: 20px;
 }
