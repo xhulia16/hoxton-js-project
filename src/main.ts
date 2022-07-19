@@ -211,14 +211,27 @@ function renderBookList() {
 function renderFooter() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
+  
+    let footerMainEl=document.createElement('div')
+    footerMainEl.className='footer'
+  
+    let contactUsEl=document.createElement('div')
+  
+    let contactUsUl=document.createElement('ul')
+    let websiteNameLi=document.createElement('li')
+    websiteNameLi.textContent='BookAL Library'
+    let phoneNumberLi=document.createElement('li')
+    phoneNumberLi.textContent='fake phone number here'
+    let addressLi=document.createElement('li')
+    addressLi.textContent='address goes here'
+  
+    contactUsUl.append(websiteNameLi, phoneNumberLi, addressLi)
+    contactUsEl.append(contactUsUl)
+  
+    mainEl.append(contactUsEl)
+  
+  }
 
-  let FooterEl = document.createElement('div')
-  FooterEl.className = 'footer'
-  FooterEl.textContent = 'TEXT HERE'
-
-  mainEl.append(FooterEl)
-
-}
 
 
 function render() {
@@ -230,7 +243,7 @@ function render() {
     renderBookList()
     renderFooter()
   }
-  if (state.show === 'details') renderHeader(), renderBookDetails()
+  if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
 }
 
 render()
