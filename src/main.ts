@@ -25,13 +25,11 @@ function getBookdata() {
     })
 }
 
-<<<<<<< HEAD
-// getMoviedata()
+
+
+// getBookdata()
 // window.state = state
-=======
-getBookdata()
-window.state = state
->>>>>>> ec3e32683e6a1102445121d35a16da6283e71613
+
 
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -143,5 +141,5 @@ function render() {
   renderFooter()
 }
 
-render()
-getMoviedata()
+render() 
+getBookdata()
