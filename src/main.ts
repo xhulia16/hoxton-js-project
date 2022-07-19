@@ -25,8 +25,8 @@ function getMoviedata() {
     })
 }
 
-getMoviedata()
-window.state = state
+// getMoviedata()
+// window.state = state
 
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -138,3 +138,4 @@ function render() {
 }
 
 render()
+getMoviedata()
