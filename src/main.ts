@@ -94,14 +94,10 @@ function renderHeader() {
     })
   }
 
-
-  let submitBtn = document.createElement('button')
-  submitBtn.textContent = 'submit'
-
   let userProfileEL = document.createElement('li')
   userProfileEL.textContent = '👤'
 
-  searchBarLi.append(searchBarInput, submitBtn)
+  searchBarLi.append(searchBarInput)
   rightUlEl.append(searchBarLi, userProfileEL)
   rightNavEl.append(rightUlEl)
   rightPaneEl.append(rightNavEl)
