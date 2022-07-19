@@ -25,8 +25,16 @@ function getBookdata() {
     })
 }
 
+function getBooksforTitle(){
+  fetch(`http://localhost:3005/books?title_like=${state.books}`)
+  .then(resp => resp.json())
+  .then(dataFromServer => {
+    state.books = dataFromServer
+    render()
+  })
+}
 // getBookdata()
-// window.state = state
+window.state = state
 
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -54,16 +62,30 @@ function renderHeader() {
   let rightNavEl = document.createElement('nav')
   let rightUlEl = document.createElement('ul')
   let searchBarLi = document.createElement('li')
+
+  let searchBookTitleForm=document.createElement('form')
+  searchBookTitleForm.id='search-book-form'
+  searchBookTitleForm.autocomplete='off'
+  searchBookTitleForm.addEventListener('submit', function(event){
+    event.preventDefault()
+    let title= searchBookTitleForm['search-book'].value
+    console.log(title)
+  })
+
   let searchBarInput = document.createElement('input')
+  searchBarInput.id='search-book'
   searchBarInput.name = 'search-bar'
   searchBarInput.placeholder = 'Search here'
+
   let submitBtn = document.createElement('button')
   submitBtn.textContent = 'submit'
 
   let userProfileEL = document.createElement('li')
   userProfileEL.textContent = '👤'
 
-  searchBarLi.append(searchBarInput, submitBtn)
+  searchBookTitleForm.append(searchBarInput, submitBtn)
+
+  searchBarLi.append(searchBookTitleForm)
   rightUlEl.append(searchBarLi, userProfileEL)
   rightNavEl.append(rightUlEl)
   rightPaneEl.append(rightNavEl)
