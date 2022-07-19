@@ -1,6 +1,6 @@
 import './style.css'
 
-type Books = {
+type Book = {
   author: string,
   title: string,
   description: string,
@@ -9,10 +9,10 @@ type Books = {
 }
 
 type State = {
-  books: Books[]
+  books: Book[]
   fillter: String
   show: 'books' | 'details'
-  selectedBook: Books | null
+  selectedBook: Book | null
 }
 
 let state: State = {
@@ -76,6 +76,18 @@ function renderHeader() {
   rightPaneEl.className = 'header__right-pane'
   let rightNavEl = document.createElement('nav')
   let rightUlEl = document.createElement('ul')
+
+  let homeBtnLi = document.createElement('li')
+  let homeBtn = document.createElement('button')
+  homeBtn.textContent = 'Home'
+  homeBtn.type='submit'
+  homeBtn.addEventListener('click', function(){
+    state.show="books"
+    render()
+  })
+
+  homeBtnLi.append(homeBtn)
+
   let searchBarLi = document.createElement('li')
 
   let searchBarInput = document.createElement('input')
@@ -98,7 +110,7 @@ function renderHeader() {
   userProfileEL.textContent = '👤'
 
   searchBarLi.append(searchBarInput)
-  rightUlEl.append(searchBarLi, userProfileEL)
+  rightUlEl.append(homeBtnLi, searchBarLi, userProfileEL)
   rightNavEl.append(rightUlEl)
   rightPaneEl.append(rightNavEl)
 
@@ -117,29 +129,29 @@ function renderBookDetails() {
 
   let imgDiv = document.createElement('div')
   let imgEl = document.createElement("img")
+  imgEl.className = 'single-book_image'
   imgEl.src = state.selectedBook?.cover
-  imgEl.width = 300
   imgEl.alt = ""
 
   imgDiv.append(imgEl)
 
-  let bookDetailsDiv=document.createElement('div')
-  bookDetailsDiv.className='book-details'
+  let bookDetailsDiv = document.createElement('div')
+  bookDetailsDiv.className = 'book-details'
 
-  let singleBookTitle=document.createElement('h2')
-  singleBookTitle.textContent=`Title: ${state.selectedBook?.title}`
+  let singleBookTitle = document.createElement('h2')
+  singleBookTitle.textContent = `Title: ${state.selectedBook?.title}`
 
-  let singleBookAuthor=document.createElement('h3')
-  singleBookAuthor.textContent=`Author: ${state.selectedBook?.author}`
+  let singleBookAuthor = document.createElement('h3')
+  singleBookAuthor.textContent = `Author: ${state.selectedBook?.author}`
 
-  let singleBookPrice=document.createElement('h3')
-  singleBookPrice.textContent=`Price: £${state.selectedBook?.price}`
+  let singleBookPrice = document.createElement('h3')
+  singleBookPrice.textContent = `Price: £${state.selectedBook?.price}`
 
   let singleBookDescription = document.createElement("p")
-  singleBookDescription.className='book-description__paragraph'
+  singleBookDescription.className = 'book-description__paragraph'
   singleBookDescription.textContent = state.selectedBook?.description
 
-  bookDetailsDiv.append(singleBookTitle,singleBookAuthor,singleBookPrice ,singleBookDescription )
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription)
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)

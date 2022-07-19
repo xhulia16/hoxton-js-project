@@ -71,3 +71,7 @@ padding:60px
 .book-description__paragraph{
   width: 650px
 }
+
+.single-book_image{
+  width:300px;
+}
