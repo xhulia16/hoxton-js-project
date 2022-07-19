@@ -25,7 +25,7 @@ place-items: center;
 }
 
 .main-page {
-  height: 500px;
+  height: max-content;
   background-color: rgb(219, 181, 255);
 }
 
@@ -41,12 +41,12 @@ ul {
 }
 .books-display{
   display: grid;  
-  padding:20px;
+  padding:30px;
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .main-page{
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: repeat(5, 1fr);
   justify-content: center;
 }
