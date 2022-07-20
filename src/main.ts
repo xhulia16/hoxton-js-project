@@ -11,7 +11,7 @@ type Book = {
 type State = {
   books: Book[]
   fillter: String
-  show: 'books' | 'details'
+  show: 'books' | 'details' | "login"
   selectedBook: Book | null
 }
 
@@ -47,9 +47,81 @@ function filterBook(newFilter: string) {
   state.show = "books"
   state.selectedBook = null
 }
-function selectBook(book: Books) {
+function selectBook(book: Book) {
   state.show = 'details'
   state.selectedBook = book
+} 
+function createFormSingIn(){
+  let mainEl = document.querySelector('#app')
+  if (mainEl === null) return
+  let formEl=document.createElement("form")
+  formEl.className="formEl"
+  let divEl=document.createElement("div")
+divEl.className=("login")
+let h2El=document.createElement("h2")
+h2El.textContent=("Login")
+
+let labelEl=document.createElement("label")
+labelEl.setAttribute("for", 'name');
+labelEl.textContent="Username"
+let inputEl=document.createElement("input")
+inputEl.id="name"
+inputEl.type="text"
+inputEl.name="name"
+inputEl.minLength=3
+inputEl.maxLength=20
+inputEl.placeholder="👩🏻🧑🏻Type your username"
+var brEl = document.createElement('br');
+
+let label2El=document.createElement("label")
+label2El.setAttribute("for", 'email');
+ label2El.textContent="Password"
+let input2El=document.createElement("input")
+input2El.id="password"
+input2El.type="password"
+input2El.name="paswword"
+input2El.minLength=7
+input2El.placeholder="🔑Type your pasword"
+let pEl=document.createElement("p")
+pEl.textContent="Forgot password?"
+var br2El = document.createElement('br')
+divEl.append(h2El,labelEl,inputEl, brEl, label2El, input2El,pEl,br2El)
+
+let buttonEl=document.createElement("button")
+buttonEl.type="button"
+buttonEl.textContent="LOGIN"
+let p2El=document.createElement("p")
+p2El.className="text"
+p2El.textContent="Or Sign Up Using"
+let div2El=document.createElement("div")
+div2El.className="icon"
+
+let fbEl=document.createElement("img")
+fbEl.src="src/imageForm/facebbok.jpg"
+fbEl.width=30
+
+let twitterEl=document.createElement("img")
+twitterEl.src="./src/imageForm/twitter.png"
+twitterEl.width=30
+
+let googleEl=document.createElement("img")
+googleEl.src="./src/imageForm/google.png"
+googleEl.width=50
+div2El.append(fbEl,twitterEl,googleEl)
+
+let p3El=document.createElement("p")
+p3El.className="text c1"
+p3El.textContent="Or Sign Up Using"
+
+let aEl=document.createElement("a")
+aEl.className="text d1"
+aEl.textContent="SIGN UP"
+aEl.href="#"
+
+formEl.append(divEl,buttonEl,p2El ,div2El, p3El,aEl)
+
+mainEl.append(formEl)
+
 }
 function renderHeader() {
   let mainEl = document.querySelector('#app')
@@ -106,8 +178,15 @@ function renderHeader() {
     })
   }
 
-  let userProfileEL = document.createElement('li')
-  userProfileEL.textContent = '👤'
+  let userProfileEL = document.createElement('button')
+  userProfileEL.textContent = '👤LOGIN'
+  userProfileEL.addEventListener("click", function(){
+state.show='login'
+render()
+  })
+  // let userLogInEl = document.createElement('button')
+  // userLogInEl.textContent="LOGIN"
+
 
   searchBarLi.append(searchBarInput)
   rightUlEl.append(homeBtnLi, searchBarLi, userProfileEL)
@@ -244,6 +323,8 @@ function render() {
     renderFooter()
   }
   if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
+
+  if(state.show===`login`) createFormSingIn()
 }
 
 render()
