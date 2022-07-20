@@ -76,11 +76,13 @@ padding:60px
   width:300px;
 }
 
-<<<<<<< HEAD
 /* CSS for the form */
-.formEl{
+/* .formEl{
   font-family: sans-serif;
-}
+  display: grid;
+  /* justify-items: center; */
+  /* gap: 1.4rem;
+} */ 
 .login h2{
   font-size: 30px;
   background: -webkit-linear-gradient(pink, #c0c4e7);
@@ -114,11 +116,11 @@ width: 400px;
 
 
 }
-input{
+.input{
   border: none;
   border-bottom: 1px solid rgb(202, 200, 200);
 }
-button{
+.button{
   border: none;
   border-radius: 20px;
   padding: 5px;
@@ -145,10 +147,10 @@ button{
  text-decoration: none;
  color: black;
 
-=======
+}
 .reviews{
   display: grid;
   grid-auto-flow: row;
   gap:5px;
->>>>>>> 07f09fe393ab838582d2469e741fb94f88fe41be
+
 }

@@ -17,14 +17,11 @@ type Book = {
 }
 
 type State = {
-  books: Book[]
-<<<<<<< HEAD
-  fillter: String
-  show: 'books' | 'details' | "login"
-=======
-  fillter: string
-  show: 'books' | 'details'
->>>>>>> 07f09fe393ab838582d2469e741fb94f88fe41be
+  books: Book[],
+  fillter: String,
+  show: 'books' | 'details' | "login",
+  fillter: string,
+  show: 'books' | 'details',
   selectedBook: Book | null
 }
 
@@ -83,6 +80,7 @@ let labelEl=document.createElement("label")
 labelEl.setAttribute("for", 'name');
 labelEl.textContent="Username"
 let inputEl=document.createElement("input")
+inputEl.className="input"
 inputEl.id="name"
 inputEl.type="text"
 inputEl.name="name"
@@ -95,6 +93,7 @@ let label2El=document.createElement("label")
 label2El.setAttribute("for", 'email');
  label2El.textContent="Password"
 let input2El=document.createElement("input")
+input2El.className="input"
 input2El.id="password"
 input2El.type="password"
 input2El.name="paswword"
@@ -106,6 +105,7 @@ var br2El = document.createElement('br')
 divEl.append(h2El,labelEl,inputEl, brEl, label2El, input2El,pEl,br2El)
 
 let buttonEl=document.createElement("button")
+buttonEl.className="button"
 buttonEl.type="button"
 buttonEl.textContent="LOGIN"
 let p2El=document.createElement("p")
@@ -370,7 +370,7 @@ function render() {
   }
   if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
 
-  if(state.show===`login`) createFormSingIn()
+  if(state.show===`login`) renderHeader(),createFormSingIn()
 }
 
 render()
