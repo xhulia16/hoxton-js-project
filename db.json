@@ -15,6 +15,7 @@
       "description": "The unforgettable, heartbreaking story of the unlikely friendship between a wealthy boy and the son of his father's servant, The Kite Runner is a beautifully crafted novel set in a country that is in the process of being destroyed. It is about the power of reading, the price of betrayal, and the possibility of redemption, and it is also about the power of fathers over sons—their love, their sacrifices, their lies.",
       "cover": "./src/image/TheKiteRunner.jpg",
       "price": 10.25
+     
     },
     {
       "id": 3,
@@ -23,6 +24,7 @@
       "description": "In a life filled with meaning and accomplishment, Michelle Obama has emerged as one of the most iconic and compelling women of our era. As First Lady of the United States of America—the first African American to serve in that role—she helped create the most welcoming and inclusive White House in history, while also establishing herself as a powerful advocate for women and girls in the U.S. and around the world, dramatically changing the ways that families pursue healthier and more active lives, and standing with her husband as he led America through some of its most harrowing moments.",
       "cover": "./src/image/becoming.jpg",
       "price": 5.25
+      
     },
     {
       "id": 4,
@@ -31,6 +33,7 @@
       "description": "A Thousand Splendid Suns is a breathtaking story set against the volatile events of Afghanistan's last thirty years—from the Soviet invasion to the reign of the Taliban to post-Taliban rebuilding—that puts the violence, fear, hope, and faith of this country in intimate, human terms. It is a tale of two generations of characters brought jarringly together by the tragic sweep of war, where personal lives—the struggle to survive, raise a family, find happiness—are inextricable from the history playing out around them.",
       "cover": "./src/image/Thousand.jpg",
       "price": 5.03
+    
     },
     {
       "id": 5,
@@ -39,6 +42,7 @@
       "description": "The year: 1377. The place: the Balkan peninsula. Here in Ismail Kadare's novel, The Three-Arched Bridge, an Albanian monk chronicles the events surrounding the construction of a bridge across a great river known as Ujana e Keqe, or `Wicked Waters.` If successful in their endeavor, the bridge-builders will challenge a monopoly on water transportation known simply as `Boats and Rafts.` The story itself parallels developments in modern-day Eastern Europe, with the bridge emblematic of a disintegrating economic and political order.",
       "cover": "./src/image/3ArchedBridge.jpg",
       "price": 7.32
+  
     },
     {
       "id": 6,
@@ -47,6 +51,7 @@
       "description": " With the world slowly sliding into war, it is crucial that enemies of the Reich flee Europe at once. But so many routes are closed, and so much money is needed. Then one night in Lisbon, as a poor young refugee gazes hungrily at a boat bound for America, a stranger approaches him with two tickets and a story to tell.",
       "cover": "./src/image/TheNightLisbon.jpg",
       "price": 8.2
+
     },
     {
       "id": 7,
@@ -55,6 +60,7 @@
       "description": "After losing her husband, Sofia learns that he had an extramarital affair. She is called Kiveli, a lawyer by profession, diametrically opposed to Sofian, but with an important knot. Angelo, the man they had separated for several years – although only Kivel knew of Sofia’s existence, the latter much later. On the one hand a beautiful woman seeking revenge in any form on her already dead husband. On the other hand a strong woman who seeks in every corner the memories of her lover, every corner and space where he has left his shadow. One lawyer and the other hairdresser.",
       "cover": "./src/image/BigLove.jpg",
       "price": 9.4
+     
     },
     {
       "id": 8,
@@ -63,6 +69,7 @@
       "description": "Lily hasn’t always had it easy, but that’s never stopped her from working hard for the life she wants. She’s come a long way from the small town in Maine where she grew up — she graduated from college, moved to Boston, and started her own business. So when she feels a spark with a gorgeous neurosurgeon named Ryle Kincaid, everything in Lily’s life suddenly seems almost too good to be true.",
       "cover": "./src/image/ItEnds.jpg",
       "price": 12.5
+    
     },
     {
       "id": 9,
@@ -71,7 +78,8 @@
       "description": "From her place in the store, Klara, an Artificial Friend with outstanding observational qualities, watches carefully the behavior of those who come in to browse, and of those who pass on the street outside. She remains hopeful that a customer will soon choose her, but when the possibility emerges that her circumstances may change forever, Klara is warned not to invest too much in the promises of humans.",
       "cover": "./src/image/Klara.jpg",
       "price": 17.5
-    }, 
+     
+    },
     {
       "id": 10,
       "title": "No Longer Human",
@@ -79,7 +87,8 @@
       "description": "Osamu Dazai's No Longer Human, this leading postwar Japanese writer's second novel, tells the poignant and fascinating story of a young man who is caught between the breakup of the traditions of a northern Japanese aristocratic family and the impact of Western ideas. In consequence, he feels himself 'disqualified from being human' (a literal translation of the Japanese title).",
       "cover": "./src/image/human.jpg",
       "price": 17.5
-    }, 
+      
+    },
     {
       "id": 11,
       "title": "The Fall",
@@ -87,7 +96,8 @@
       "description": "Jean-Baptiste Clamence is a soul in turmoil. Over several drunken nights in an Amsterdam bar, he regales a chance acquaintance with his story. From this successful former lawyer and seemingly model citizen a compelling, self-loathing catalogue of guilt, hypocrisy and alienation pours forth.",
       "cover": "./src/image/fall.jpg",
       "price": 14.5
-    }, 
+     
+    },
     {
       "id": 12,
       "title": "Quicksand",
@@ -95,6 +105,86 @@
       "description": "From one of the greatest writers of twentieth-century Japan comes a silkily nuanced novel of erotic gamesmanship and obsession. The voice--cultured, ingenuous, and with a touch of coquetterie--is that of Sonoko Kakiuchi, an Osaka lady of good family married to a dully respectable lawyer.",
       "cover": "./src/image/quicksand.jpg",
       "price": 12.5
+   
+    }
+  ],
+
+  "reviews": [
+    {
+      "id": 1,
+      "content": "I loved this book. I wish it was longer",
+      "bookId": 1
+    },
+    {
+      "id": 2,
+      "content": "Great read!",
+      "bookId": 2
+    },
+    {
+      "id": 3,
+      "content": "I'm so excited to read this one",
+      "bookId": 3
+    },
+    {
+      "id": 4,
+      "content": "Can't wait for this book to arrive",
+      "bookId": 3
+    },
+    {
+      "id": 5,
+      "content": "Im going to recommend this book to all of my friends, the author is great",
+      "bookId": 4
+    },
+    {
+      "id": 6,
+      "content": "I had so much fun reading this",
+      "bookId": 4
+    },
+    {
+      "id": 7,
+      "content": "The storyline was so goood!!!",
+      "bookId": 5
+    },
+    {
+      "id": 8,
+      "content": "This book is everywhere, I really should give it a go",
+      "bookId": 6
+    },
+    {
+      "id": 9,
+      "content": "Underrated author!",
+      "bookId": 7
+    },
+    {
+      "id": 10,
+      "content": "I did not expect this ending!",
+      "bookId": 8
+    },
+    {
+      "id": 11,
+      "content": "It is bittersweet",
+      "bookId": 9
+    },
+    {
+      "id": 12,
+      "content": " This book managed to surpass my high expectations.",
+      "bookId": 10
+    },
+    {
+      "id": 13,
+      "content": "Im so glad I decided to read this one",
+      "bookId": 11
+    },
+    {
+      "id": 14,
+      "content": "I read it all in one day",
+      "bookId": 12
+    },
+    {
+      "id": 15,
+      "content": "Quick Thoughts and Rating: 5 stars! ",
+      "bookId": 12
     }
   ]
 }
+

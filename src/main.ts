@@ -1,17 +1,30 @@
 import './style.css'
 
+type Review = {
+  id: number
+  content: string
+  bookId: number
+}
+
 type Book = {
-  author: string,
-  title: string,
-  description: string,
-  cover: string,
+  id: number
+  author: string
+  title: string
+  description: string
+  cover: string
   price: number
+  reviews: Review[]
 }
 
 type State = {
   books: Book[]
+<<<<<<< HEAD
   fillter: String
   show: 'books' | 'details' | "login"
+=======
+  fillter: string
+  show: 'books' | 'details'
+>>>>>>> 07f09fe393ab838582d2469e741fb94f88fe41be
   selectedBook: Book | null
 }
 
@@ -21,6 +34,11 @@ let state: State = {
   show: "books",
   selectedBook: null
 }
+
+
+function createReviewOnServer(review: string) {
+}
+
 
 function getBookdata() {
   fetch('http://localhost:3005/books')
@@ -152,9 +170,9 @@ function renderHeader() {
   let homeBtnLi = document.createElement('li')
   let homeBtn = document.createElement('button')
   homeBtn.textContent = 'Home'
-  homeBtn.type='submit'
-  homeBtn.addEventListener('click', function(){
-    state.show="books"
+  homeBtn.type = 'submit'
+  homeBtn.addEventListener('click', function () {
+    state.show = "books"
     render()
   })
 
@@ -197,9 +215,11 @@ render()
   headerEl.append(leftPaneEl, rightPaneEl)
   mainEl.append(headerEl)
 }
+
 function renderBookDetails() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
+  if (state.selectedBook === null) return
   let divEl = document.createElement("div")
 
   // for(let book of state.books){ 
@@ -230,7 +250,33 @@ function renderBookDetails() {
   singleBookDescription.className = 'book-description__paragraph'
   singleBookDescription.textContent = state.selectedBook?.description
 
-  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription)
+  let reviewFormEl = document.createElement('form')
+  reviewFormEl.addEventListener('submit', function (event) {
+    event.preventDefault()
+    console.log(reviewInput.value)
+    //createReviewOnServer(reviewInput.value)
+  })
+
+  let reviewInput = document.createElement('input')
+  reviewInput.name = 'review'
+  reviewInput.placeholder = 'Add a review'
+
+  let reviewBtn = document.createElement('button')
+  reviewBtn.type = 'submit'
+  reviewBtn.textContent = 'Add Review'
+
+  let reviewUl = document.createElement('ul')
+  reviewUl.className = 'reviews'
+
+  //for (let review of state.selectedBook.reviews) {
+  //let addedReview = document.createElement('li')
+  // addedReview.textContent = review
+  // reviewUl.append(addedReview)
+  //}
+
+  reviewFormEl.append(reviewInput, reviewBtn)
+
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewFormEl, reviewUl)
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
@@ -290,26 +336,26 @@ function renderBookList() {
 function renderFooter() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
-  
-    let footerMainEl=document.createElement('div')
-    footerMainEl.className='footer'
-  
-    let contactUsEl=document.createElement('div')
-  
-    let contactUsUl=document.createElement('ul')
-    let websiteNameLi=document.createElement('li')
-    websiteNameLi.textContent='BookAL Library'
-    let phoneNumberLi=document.createElement('li')
-    phoneNumberLi.textContent='fake phone number here'
-    let addressLi=document.createElement('li')
-    addressLi.textContent='address goes here'
-  
-    contactUsUl.append(websiteNameLi, phoneNumberLi, addressLi)
-    contactUsEl.append(contactUsUl)
-  
-    mainEl.append(contactUsEl)
-  
-  }
+
+  let footerMainEl = document.createElement('div')
+  footerMainEl.className = 'footer'
+
+  let contactUsEl = document.createElement('div')
+
+  let contactUsUl = document.createElement('ul')
+  let websiteNameLi = document.createElement('li')
+  websiteNameLi.textContent = 'BookAL Library'
+  let phoneNumberLi = document.createElement('li')
+  phoneNumberLi.textContent = 'fake phone number here'
+  let addressLi = document.createElement('li')
+  addressLi.textContent = 'address goes here'
+
+  contactUsUl.append(websiteNameLi, phoneNumberLi, addressLi)
+  contactUsEl.append(contactUsUl)
+
+  mainEl.append(contactUsEl)
+
+}
 
 
 
