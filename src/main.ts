@@ -1,13 +1,17 @@
 import './style.css'
 
-type Review = string
+type Review = {
+  id: number
+  content: string
+  bookId: number
+}
 
 type Book = {
   id: number
-  author: string,
-  title: string,
-  description: string,
-  cover: string,
+  author: string
+  title: string
+  description: string
+  cover: string
   price: number
   reviews: Review[]
 }
@@ -27,9 +31,9 @@ let state: State = {
 }
 
 
-function createReviewOnServer(review:string){
-  }
-  
+function createReviewOnServer(review: string) {
+}
+
 
 function getBookdata() {
   fetch('http://localhost:3005/books')
@@ -178,13 +182,13 @@ function renderBookDetails() {
   reviewBtn.textContent = 'Add Review'
 
   let reviewUl = document.createElement('ul')
-  reviewUl.className='reviews'
+  reviewUl.className = 'reviews'
 
-  for (let review of state.selectedBook.reviews) {
-    let addedReview = document.createElement('li')
-    addedReview.textContent = review
-    reviewUl.append(addedReview)
-  }
+  //for (let review of state.selectedBook.reviews) {
+  //let addedReview = document.createElement('li')
+  // addedReview.textContent = review
+  // reviewUl.append(addedReview)
+  //}
 
   reviewFormEl.append(reviewInput, reviewBtn)
 
