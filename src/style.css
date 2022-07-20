@@ -77,12 +77,6 @@ padding:60px
 }
 
 /* CSS for the form */
-/* .formEl{
-  font-family: sans-serif;
-  display: grid;
-  /* justify-items: center; */
-  /* gap: 1.4rem;
-} */ 
 .login h2{
   font-size: 30px;
   background: -webkit-linear-gradient(pink, #c0c4e7);
@@ -90,18 +84,20 @@ padding:60px
   -webkit-text-fill-color: transparent;
   padding-left: 30px;
 }
+.bodyform{
+  display: grid;
+  justify-content: center;
+  place-items: center;
+  background-image: linear-gradient(to right bottom,  rgb(215, 89, 215) 30%,
+  rgb(219, 181, 255) 50%);
+  font-family: sans-serif;
+  /* background-color: blueviolet; */
+}
 .login p{
 font-size: 12px;
 text-align: end;
 }
 
-body{
-  display: grid;
-  place-content: center;
-  background-image: linear-gradient(to right bottom,  #c0c4e7 30%,
-pink 50%);
-
-}
   
 form{
   background-color: white;
@@ -147,6 +143,14 @@ width: 400px;
  text-decoration: none;
  color: black;
 
+}
+.backbutton{
+  display: grid;
+  border-radius: 5px;
+  padding: 10px;
+  background:gainsboro;
+  margin-left: 400px;
+  margin-top: 20px;
 }
 .reviews{
   display: grid;

@@ -69,6 +69,9 @@ function selectBook(book: Book) {
 function createFormSingIn(){
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
+  let mainbodyEl=document.createElement("body")
+  mainbodyEl.className="bodyform"
+
   let formEl=document.createElement("form")
   formEl.className="formEl"
   let divEl=document.createElement("div")
@@ -137,8 +140,18 @@ aEl.textContent="SIGN UP"
 aEl.href="#"
 
 formEl.append(divEl,buttonEl,p2El ,div2El, p3El,aEl)
+mainbodyEl.append(formEl)
 
-mainEl.append(formEl)
+let backbuttonEl=document.createElement("button")
+backbuttonEl.textContent="⬅Back"
+backbuttonEl.className="backbutton"
+backbuttonEl.addEventListener("click", function(){
+  state.show="books"
+  render()
+})
+
+
+mainEl.append(mainbodyEl,backbuttonEl)
 
 }
 function renderHeader() {
@@ -370,7 +383,7 @@ function render() {
   }
   if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
 
-  if(state.show===`login`) renderHeader(),createFormSingIn()
+  if(state.show===`login`) createFormSingIn()
 }
 
 render()
