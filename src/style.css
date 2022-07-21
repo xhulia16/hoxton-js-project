@@ -63,7 +63,11 @@ padding-top: 20px;
  width:fit-content;
 padding:60px
 }
-
+.addCart-button{
+  width:fit-content;
+  height:fit-content;
+  padding:10px;
+}
 .comment-form{
   display: grid;
   grid-auto-flow: column;

@@ -1,4 +1,9 @@
 import './style.css'
+type CartPerUser={
+  id: number
+  userId: number
+  bookId: number
+}
 
 type User = {
   email: string
@@ -30,6 +35,7 @@ type State = {
   selectedBook: Book | null,
   currentUser: User | null,
   errorMessage: string | null
+  cartPerUser: CartPerUser[] | null
 }
 
 let state: State = {
@@ -38,7 +44,8 @@ let state: State = {
   show: "books",
   selectedBook: null,
   currentUser: null,
-  errorMessage: null
+  errorMessage: null,
+  cartPerUser: null
 }
 
 function logIn(email: string, password: string) {
