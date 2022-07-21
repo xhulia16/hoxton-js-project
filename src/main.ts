@@ -295,7 +295,7 @@ function renderBookDetails() {
   let addToCart = document.createElement('button')
   addToCart.className = 'addCart-button'
   addToCart.textContent = 'Add to cart'
-  if(state.selectedBook===null){
+  if(state.currentUser===null){
     addToCart.addEventListener('click', function () {
       state.show='login'
       render()
