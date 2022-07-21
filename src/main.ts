@@ -26,7 +26,7 @@ type Book = {
 type State = {
   books: Book[],
   fillter: string,
-  show: 'books' | 'details',
+  show: 'books' | 'details' | 'login',
   selectedBook: Book | null,
   currentUser: User | null,
   errorMessage: string | null
@@ -37,7 +37,7 @@ let state: State = {
   fillter: "",
   show: "books",
   selectedBook: null,
-  currentUser: null, 
+  currentUser: null,
   errorMessage: null
 }
 
@@ -123,6 +123,7 @@ function createFormSingIn() {
 
   let formEl = document.createElement("form")
   formEl.className = "formEl"
+
   let divEl = document.createElement("div")
   divEl.className = ("login")
   let h2El = document.createElement("h2")
@@ -149,7 +150,6 @@ function createFormSingIn() {
   input2El.id = "password"
   input2El.type = "password"
   input2El.name = "paswword"
-  input2El.minLength = 7
   input2El.placeholder = "🔑Type your pasword"
   let pEl = document.createElement("p")
   pEl.textContent = "Forgot password?"
@@ -160,6 +160,10 @@ function createFormSingIn() {
   buttonEl.className = "button"
   buttonEl.type = "button"
   buttonEl.textContent = "LOGIN"
+  buttonEl.addEventListener('click', function () {
+    logIn(inputEl.value, input2El.value)
+    render()
+  })
   let p2El = document.createElement("p")
   p2El.className = "text"
   p2El.textContent = "Or Sign Up Using"
@@ -447,7 +451,14 @@ function render() {
   }
   if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
 
-  if (state.show === `login`) createFormSingIn()
+  if (state.show === 'login') createFormSingIn()
+
+  if (state.currentUser) {
+    renderHeader()
+let welcomeSentence=document.createElement('h2')
+welcomeSentence.textContent=`Welcome ${state.currentUser.name}`
+mainEl.append(welcomeSentence)
+  }
 }
 
 render()
