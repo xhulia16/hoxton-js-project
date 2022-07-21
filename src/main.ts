@@ -42,6 +42,23 @@ function getBookdata() {
 // getBookdata()
 window.state = state
 
+function createReview (content: string, bookId: number) {
+  fetch('http://localhost:3005/reviews', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      content,
+      bookId
+    })
+  })
+    .then(resp => resp.json())
+    .then(newComment => {
+      getBookdata()
+    })
+}
+
 function getFilteredBooks() {
   return state.books.filter(
     book =>
@@ -222,7 +239,7 @@ render()
   mainEl.append(headerEl)
 }
 
-function renderBookDetails() {
+function renderBookDetails(bookId:number) {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
   if (state.selectedBook === null) return
@@ -255,6 +272,27 @@ function renderBookDetails() {
   singleBookDescription.className = 'book-description__paragraph'
   singleBookDescription.textContent = state.selectedBook?.description
 
+  let addReviewForm = document.createElement('form')
+  addReviewForm.className = 'comment-form'
+  addReviewForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+    console.log('new review was posted')
+    createReview(reviewInput.value, state.selectedBook?.id)
+  })
+
+  let reviewInput = document.createElement('input')
+  reviewInput.className = 'review-input'
+  reviewInput.type = 'text'
+  reviewInput.name = 'review'
+  reviewInput.placeholder = 'Add a review...'
+
+  let submitButton = document.createElement('button')
+  submitButton.className = 'comment-button'
+  submitButton.type = 'submit'
+  submitButton.textContent = 'Post'
+
+  addReviewForm.append(reviewInput, submitButton)
+
   let reviewUl = document.createElement('ul')
   reviewUl.className = 'reviews'
 
@@ -268,7 +306,7 @@ function renderBookDetails() {
   }
 
 
-  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewsText, reviewUl)
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, addReviewForm, reviewsText, reviewUl)
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
