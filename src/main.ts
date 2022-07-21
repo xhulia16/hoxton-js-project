@@ -63,8 +63,12 @@ function renderCartModal(mainEl: Element) {
   titleEl.textContent = 'Items in your cart '
 
   let closeButton = document.createElement('button')
-  closeButton.className='modal-button'
+  closeButton.className = 'modal-button'
   closeButton.textContent = 'x'
+  closeButton.addEventListener('click', function(){
+    state.modal=''
+    render()
+  })
 
   containerEl.append(titleEl, closeButton)
   wrapperEl.append(containerEl)
@@ -252,13 +256,29 @@ function renderHeader() {
   let homeBtnLi = document.createElement('li')
   let homeBtn = document.createElement('button')
   homeBtn.textContent = 'Home'
-  homeBtn.type = 'submit'
   homeBtn.addEventListener('click', function () {
     state.show = "books"
     render()
   })
 
   homeBtnLi.append(homeBtn)
+  let cartBtnLi = document.createElement('li')
+  let cartBtn = document.createElement('button')
+  cartBtn.textContent = 'Shopping Cart'
+  
+  cartBtn.addEventListener('click', function(){
+      if(state.currentUser===null){
+        state.show='login'
+        render()
+      }
+    else{
+      state.modal='cart'
+      render()
+    }
+    })
+  
+
+  cartBtnLi.append(cartBtn)
 
   let searchBarLi = document.createElement('li')
 
@@ -296,7 +316,7 @@ function renderHeader() {
   }
 
   searchBarLi.append(searchBarInput)
-  rightUlEl.append(homeBtnLi, searchBarLi, userProfileEL)
+  rightUlEl.append(homeBtnLi, cartBtnLi, searchBarLi, userProfileEL)
   rightNavEl.append(rightUlEl)
   rightPaneEl.append(rightNavEl)
 
@@ -489,7 +509,7 @@ function render() {
     state.show = 'books'
   }
 
-  renderCartModal(mainEl)
+  if(state.modal==='cart')renderCartModal(mainEl)
 }
 
 render()

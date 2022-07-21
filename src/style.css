@@ -188,6 +188,7 @@ height:400px;
   height:50vh;
   display: grid;
   place-content: center;
+  backdrop-filter: blur(5px);
 }
 body{
 margin:0;
