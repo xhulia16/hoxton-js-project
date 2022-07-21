@@ -139,7 +139,7 @@ function createFormSingIn() {
   inputEl.name = "name"
   inputEl.minLength = 3
   inputEl.maxLength = 20
-  inputEl.placeholder = "👩🏻🧑🏻Type your username"
+  inputEl.placeholder = "Type your email"
   var brEl = document.createElement('br');
 
   let label2El = document.createElement("label")
@@ -150,11 +150,9 @@ function createFormSingIn() {
   input2El.id = "password"
   input2El.type = "password"
   input2El.name = "paswword"
-  input2El.placeholder = "🔑Type your pasword"
-  let pEl = document.createElement("p")
-  pEl.textContent = "Forgot password?"
+  input2El.placeholder = "Type your pasword"
   var br2El = document.createElement('br')
-  divEl.append(h2El, labelEl, inputEl, brEl, label2El, input2El, pEl, br2El)
+  divEl.append(h2El, labelEl, inputEl, brEl, label2El, input2El, br2El)
 
   let buttonEl = document.createElement("button")
   buttonEl.className = "button"
@@ -164,35 +162,11 @@ function createFormSingIn() {
     logIn(inputEl.value, input2El.value)
     render()
   })
-  let p2El = document.createElement("p")
-  p2El.className = "text"
-  p2El.textContent = "Or Sign Up Using"
-  let div2El = document.createElement("div")
-  div2El.className = "icon"
 
-  let fbEl = document.createElement("img")
-  fbEl.src = "src/imageForm/facebbok.jpg"
-  fbEl.width = 30
+  let logInMessage=document.createElement('h3')
+  logInMessage.textContent=state.errorMessage
 
-  let twitterEl = document.createElement("img")
-  twitterEl.src = "./src/imageForm/twitter.png"
-  twitterEl.width = 30
-
-  let googleEl = document.createElement("img")
-  googleEl.src = "./src/imageForm/google.png"
-  googleEl.width = 50
-  div2El.append(fbEl, twitterEl, googleEl)
-
-  let p3El = document.createElement("p")
-  p3El.className = "text c1"
-  p3El.textContent = "Or Sign Up Using"
-
-  let aEl = document.createElement("a")
-  aEl.className = "text d1"
-  aEl.textContent = "SIGN UP"
-  aEl.href = "#"
-
-  formEl.append(divEl, buttonEl, p2El, div2El, p3El, aEl)
+  formEl.append(divEl, logInMessage, buttonEl)
   mainbodyEl.append(formEl)
 
   let backbuttonEl = document.createElement("button")
@@ -204,7 +178,7 @@ function createFormSingIn() {
   })
 
 
-  mainEl.append(mainbodyEl, backbuttonEl)
+  mainEl.append(mainbodyEl,  backbuttonEl)
 
 }
 function renderHeader() {
@@ -262,14 +236,21 @@ function renderHeader() {
   }
 
   let userProfileEL = document.createElement('button')
-  userProfileEL.textContent = '👤LOGIN'
+  if (state.currentUser===null){
+    userProfileEL.textContent = 'Log in'
   userProfileEL.addEventListener("click", function () {
     state.show = 'login'
     render()
-  })
-  // let userLogInEl = document.createElement('button')
-  // userLogInEl.textContent="LOGIN"
-
+  })}
+  else{
+    userProfileEL.textContent = 'Log out'
+    userProfileEL.addEventListener('click', function(){
+      state.currentUser = null;
+      state.errorMessage = null;
+      localStorage.clear();
+      render();
+    })
+  }
 
   searchBarLi.append(searchBarInput)
   rightUlEl.append(homeBtnLi, searchBarLi, userProfileEL)
@@ -454,10 +435,7 @@ function render() {
   if (state.show === 'login') createFormSingIn()
 
   if (state.currentUser) {
-    renderHeader()
-let welcomeSentence=document.createElement('h2')
-welcomeSentence.textContent=`Welcome ${state.currentUser.name}`
-mainEl.append(welcomeSentence)
+state.show='books'
   }
 }
 
