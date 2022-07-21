@@ -14,6 +14,7 @@ type Book = {
   cover: string
   price: number
   reviews: Review[]
+  inCart: number
 }
 
 type State = {
@@ -59,6 +60,10 @@ function createReview(content: string, bookId: number) {
          book?.reviews.push(newReview)
         render()
     })
+}
+
+function increaseQuantity() {
+  state.selectedBook.inCart++
 }
 
 function getFilteredBooks() {
@@ -269,6 +274,14 @@ function renderBookDetails() {
   let singleBookPrice = document.createElement('h3')
   singleBookPrice.textContent = `Price: £${state.selectedBook?.price}`
 
+  let addToCart=document.createElement('button')
+  addToCart.className='addCart-button'
+  addToCart.textContent='Add to cart'
+  addToCart.addEventListener('click', function(){
+    increaseQuantity()
+  })
+
+
   let singleBookDescription = document.createElement("p")
   singleBookDescription.className = 'book-description__paragraph'
   singleBookDescription.textContent = state.selectedBook?.description
@@ -294,6 +307,7 @@ function renderBookDetails() {
 
   addReviewForm.append(reviewInput, submitButton)
 
+
   let reviewUl = document.createElement('ul')
   reviewUl.className = 'reviews'
 
@@ -307,7 +321,7 @@ function renderBookDetails() {
   }
 
 
-  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, addReviewForm, reviewsText, reviewUl)
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, addToCart, singleBookDescription, addReviewForm, reviewsText, reviewUl)
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
