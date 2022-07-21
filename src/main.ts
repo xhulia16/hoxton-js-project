@@ -18,8 +18,6 @@ type Book = {
 
 type State = {
   books: Book[],
-  fillter: String,
-  show: 'books' | 'details' | "login",
   fillter: string,
   show: 'books' | 'details',
   selectedBook: Book | null
@@ -32,11 +30,6 @@ let state: State = {
   selectedBook: null
 }
 
-
-function createReviewOnServer(review: string) {
-}
-
-
 function getBookdata() {
   fetch('http://localhost:3005/books')
     .then(resp => resp.json())
@@ -47,7 +40,7 @@ function getBookdata() {
 }
 
 // getBookdata()
-//window.state = state
+window.state = state
 
 function getFilteredBooks() {
   return state.books.filter(
@@ -235,7 +228,6 @@ function renderBookDetails() {
   if (state.selectedBook === null) return
   let divEl = document.createElement("div")
 
-  // for(let book of state.books){ 
   let main1El = document.createElement("main")
   main1El.className = ("main__detailBook")
 
@@ -263,33 +255,11 @@ function renderBookDetails() {
   singleBookDescription.className = 'book-description__paragraph'
   singleBookDescription.textContent = state.selectedBook?.description
 
-  let reviewFormEl = document.createElement('form')
-  reviewFormEl.addEventListener('submit', function (event) {
-    event.preventDefault()
-    console.log(reviewInput.value)
-    //createReviewOnServer(reviewInput.value)
-  })
-
-  let reviewInput = document.createElement('input')
-  reviewInput.name = 'review'
-  reviewInput.placeholder = 'Add a review'
-
-  let reviewBtn = document.createElement('button')
-  reviewBtn.type = 'submit'
-  reviewBtn.textContent = 'Add Review'
-
   let reviewUl = document.createElement('ul')
   reviewUl.className = 'reviews'
+  
 
-  //for (let review of state.selectedBook.reviews) {
-  //let addedReview = document.createElement('li')
-  // addedReview.textContent = review
-  // reviewUl.append(addedReview)
-  //}
-
-  reviewFormEl.append(reviewInput, reviewBtn)
-
-  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewFormEl, reviewUl)
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewUl)
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
