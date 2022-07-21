@@ -257,9 +257,18 @@ function renderBookDetails() {
 
   let reviewUl = document.createElement('ul')
   reviewUl.className = 'reviews'
-  
 
-  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewUl)
+  let reviewsText=document.createElement('h3')
+    reviewsText.textContent='Reviews by other users:'
+
+  for( let review of state.selectedBook.reviews){
+    let reviewLi=document.createElement('li')
+    reviewLi.textContent=review.content
+    reviewUl.append(reviewLi)
+  }
+
+
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, reviewsText, reviewUl)
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
