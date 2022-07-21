@@ -48,6 +48,17 @@ let state: State = {
   cartPerUser: null
 }
 
+function getCartForLoggedInUser() {
+  fetch(`http://localhost:3005/cartPerUser?userId_like=${state.currentUser?.id}`)
+  .then(resp => resp.json())
+  .then(dataFromServer =>{
+state.cartPerUser=dataFromServer
+render()
+  })
+  }
+
+//window.getCartForLoggedInUser=getCartForLoggedInUser
+
 function logIn(email: string, password: string) {
   fetch('http://localhost:3005/users')
     .then(r => r.json())
