@@ -501,8 +501,9 @@ function renderFooter() {
 
   contactUsUl.append(websiteNameLi, phoneNumberLi, addressLi)
   contactUsEl.append(contactUsUl)
+  footerMainEl.append(contactUsEl)
 
-  mainEl.append(contactUsEl)
+  mainEl.append(footerMainEl)
 
 }
 
