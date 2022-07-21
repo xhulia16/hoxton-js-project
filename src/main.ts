@@ -51,30 +51,6 @@ let state: State = {
   modal: ''
 }
 
-function renderCartModal(mainEl: Element) {
-
-  let wrapperEl = document.createElement('div')
-  wrapperEl.className = 'modal-wrapper'
-
-  let containerEl = document.createElement('div')
-  containerEl.className = 'modal-container'
-
-  let titleEl = document.createElement('h2')
-  titleEl.textContent = 'Items in your cart '
-
-  let closeButton = document.createElement('button')
-  closeButton.className = 'modal-button'
-  closeButton.textContent = 'x'
-  closeButton.addEventListener('click', function(){
-    state.modal=''
-    render()
-  })
-
-  containerEl.append(titleEl, closeButton)
-  wrapperEl.append(containerEl)
-  mainEl.append(wrapperEl)
-}
-
 function getCartForLoggedInUser() {
   fetch(`http://localhost:3005/cartPerUser?userId_like=${state.currentUser?.id}`)
     .then(resp => resp.json())
@@ -84,7 +60,47 @@ function getCartForLoggedInUser() {
     })
 }
 
-//window.getCartForLoggedInUser=getCartForLoggedInUser
+function getBooksForUser() {
+  // filter out cartItems, to only get ones that belong to loggedInUser.id
+  if (state.cartPerUser === null) return
+  if (state.currentUser === null) return
+  const cartItemsForThisUser = state.cartPerUser.filter(cartItem =>
+    cartItem.userId === state.currentUser.id)
+
+  function findBookById(idParam: number) {
+    return state.books.find(bookInBooks => bookInBooks.id === idParam)
+  }
+
+  // for every cartItem for the current user -> transform bookId into full book from state.books
+  const booksInCart = cartItemsForThisUser.map(cartItem => findBookById(cartItem.bookId))
+  return booksInCart
+}
+window.getBooksForUser=getBooksForUser
+
+function renderCartModal(mainEl: Element) {
+  if (state.cartPerUser === null) return
+
+  let wrapperEl = document.createElement('div')
+  wrapperEl.className = 'modal-wrapper'
+
+  let containerEl = document.createElement('div')
+  containerEl.className = 'modal-container'
+
+  let titleEl = document.createElement('h2')
+  titleEl.textContent = 'Items in your cart:'
+
+  let closeButton = document.createElement('button')
+  closeButton.className = 'modal-button'
+  closeButton.textContent = 'x'
+  closeButton.addEventListener('click', function () {
+    state.modal = ''
+    render()
+  })
+
+  containerEl.append(titleEl, closeButton)
+  wrapperEl.append(containerEl)
+  mainEl.append(wrapperEl)
+}
 
 function logIn(email: string, password: string) {
   fetch('http://localhost:3005/users')
@@ -117,7 +133,6 @@ function getBookdata() {
     })
 }
 
-// getBookdata()
 window.state = state
 
 function createReview(content: string, bookId: number) {
@@ -138,10 +153,6 @@ function createReview(content: string, bookId: number) {
       render()
     })
 }
-
-//function increaseQuantity(item: Book) {
-//item.inCart.cart++
-//}
 
 function getFilteredBooks() {
   return state.books.filter(
@@ -265,18 +276,22 @@ function renderHeader() {
   let cartBtnLi = document.createElement('li')
   let cartBtn = document.createElement('button')
   cartBtn.textContent = 'Shopping Cart'
-  
-  cartBtn.addEventListener('click', function(){
-      if(state.currentUser===null){
-        state.show='login'
-        render()
-      }
-    else{
-      state.modal='cart'
+  if (state.currentUser === null) {
+    cartBtn.addEventListener('click', function () {
+      state.show = 'login'
       render()
-    }
     })
-  
+  }
+  else {
+    cartBtn.addEventListener('click', function () {
+      getCartForLoggedInUser()
+      state.modal = 'cart'
+      console.log('it works?')
+      render()
+    })
+  }
+
+
 
   cartBtnLi.append(cartBtn)
 
@@ -509,7 +524,7 @@ function render() {
     state.show = 'books'
   }
 
-  if(state.modal==='cart')renderCartModal(mainEl)
+  if (state.modal === 'cart') renderCartModal(mainEl)
 }
 
 render()
