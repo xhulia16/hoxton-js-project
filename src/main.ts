@@ -118,6 +118,7 @@ function selectBook(book: Book) {
 function createFormSingIn() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
+
   let mainbodyEl = document.createElement("body")
   mainbodyEl.className = "bodyform"
 
@@ -131,7 +132,7 @@ function createFormSingIn() {
 
   let labelEl = document.createElement("label")
   labelEl.setAttribute("for", 'name');
-  labelEl.textContent = "Username"
+  labelEl.textContent = "Email"
   let inputEl = document.createElement("input")
   inputEl.className = "input"
   inputEl.id = "name"
@@ -166,9 +167,6 @@ function createFormSingIn() {
   let logInMessage=document.createElement('h3')
   logInMessage.textContent=state.errorMessage
 
-  formEl.append(divEl, logInMessage, buttonEl)
-  mainbodyEl.append(formEl)
-
   let backbuttonEl = document.createElement("button")
   backbuttonEl.textContent = "⬅Back"
   backbuttonEl.className = "backbutton"
@@ -177,8 +175,11 @@ function createFormSingIn() {
     render()
   })
 
+  formEl.append(divEl, logInMessage, buttonEl)
+  mainbodyEl.append(formEl, backbuttonEl)
 
-  mainEl.append(mainbodyEl,  backbuttonEl)
+
+mainEl.append(mainbodyEl )
 
 }
 function renderHeader() {
