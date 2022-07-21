@@ -365,6 +365,7 @@ function renderBookDetails() {
   singleBookAuthor.textContent = `Author: ${state.selectedBook?.author}`
 
   let singleBookPrice = document.createElement('h3')
+  singleBookPrice.className='book-price'
   singleBookPrice.textContent = `Price: £${state.selectedBook?.price}`
 
   let addToCart = document.createElement('button')
@@ -448,6 +449,7 @@ function renderBookList() {
 
   for (let item of filteredBooks) {
     let bookItemEl = document.createElement('div')
+    bookItemEl.className='single-book'
     bookItemEl.addEventListener('click', function () {
       selectBook(item)
       render()
@@ -465,6 +467,7 @@ function renderBookList() {
     bookAuthorEl.textContent = item.author
 
     let bookPriceEl = document.createElement("h4")
+    bookPriceEl.className='book-price'
     bookPriceEl.textContent = `£ ${item.price}`
 
     bookItemEl.append(bookCoverEl, bookTitleEl, bookAuthorEl, bookPriceEl)
