@@ -228,3 +228,10 @@ margin-bottom: 40px;
 .book-price{
   color: rgb(201, 79, 57);
 }
+.comment-button,
+.addCart-button{
+  border:rgb(126, 37, 22); ;
+  background-color: rgb(201, 79, 57);
+  color:rgb(248, 241, 255);
+  padding:10px;
+}
