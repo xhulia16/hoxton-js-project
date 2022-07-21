@@ -177,3 +177,27 @@ height:400px;
   gap:5px;
 
 }
+
+.modal-wrapper{
+  position:absolute;
+  top: 25vh;
+  left:75vh;
+  background-color: rgba(0, 0, 0, 0.281);
+  padding: 2rem;
+  width: 50vh;
+  height:50vh;
+  display: grid;
+  place-content: center;
+}
+body{
+margin:0;
+}
+.modal-button{
+  width:20px;
+}
+.modal-container{
+  background-color: #c0c4e7;
+  display: grid;
+  place-items: center;
+}
+

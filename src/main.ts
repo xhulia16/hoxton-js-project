@@ -63,6 +63,7 @@ function renderCartModal(mainEl: Element) {
   titleEl.textContent = 'Items in your cart '
 
   let closeButton = document.createElement('button')
+  closeButton.className='modal-button'
   closeButton.textContent = 'x'
 
   containerEl.append(titleEl, closeButton)
