@@ -1,5 +1,12 @@
 import './style.css'
 
+type User = {
+  email: string
+  name: string
+  password: string
+  id: number
+}
+
 type Review = {
   id: number
   content: string
@@ -7,29 +14,54 @@ type Review = {
 }
 
 type Book = {
-  id: number 
+  id: number
   author: string
   title: string
   description: string
   cover: string
   price: number
   reviews: Review[]
-  inCart: number
 }
 
 type State = {
   books: Book[],
   fillter: string,
   show: 'books' | 'details',
-  selectedBook: Book | null
+  selectedBook: Book | null,
+  currentUser: User | null,
+  errorMessage: string | null
 }
 
 let state: State = {
   books: [],
   fillter: "",
   show: "books",
-  selectedBook: null
+  selectedBook: null,
+  currentUser: null, 
+  errorMessage: null
 }
+
+function logIn(email: string, password: string) {
+  fetch('http://localhost:3005/users')
+    .then(r => r.json())
+    .then((users: User[]) => {
+
+      const foundUser = users.find(user =>
+        user.email.toLowerCase() === email.toLowerCase() &&
+        user.password === password
+      )
+
+      if (foundUser) {
+        state.currentUser = foundUser;
+        localStorage.id = foundUser.id;
+      } else {
+        state.errorMessage = 'No user found!'
+      }
+
+      render();
+    })
+}
+
 
 function getBookdata() {
   fetch('http://localhost:3005/books')
@@ -56,15 +88,15 @@ function createReview(content: string, bookId: number) {
   })
     .then(resp => resp.json())
     .then(newReview => {
-      let book = state.books.find(book=> book.id === newReview.bookId)
-         book?.reviews.push(newReview)
-        render()
+      let book = state.books.find(book => book.id === newReview.bookId)
+      book?.reviews.push(newReview)
+      render()
     })
 }
 
-function increaseQuantity() {
-  state.selectedBook.inCart++
-}
+//function increaseQuantity(item: Book) {
+//item.inCart.cart++
+//}
 
 function getFilteredBooks() {
   return state.books.filter(
@@ -274,11 +306,12 @@ function renderBookDetails() {
   let singleBookPrice = document.createElement('h3')
   singleBookPrice.textContent = `Price: £${state.selectedBook?.price}`
 
-  let addToCart=document.createElement('button')
-  addToCart.className='addCart-button'
-  addToCart.textContent='Add to cart'
-  addToCart.addEventListener('click', function(){
-    increaseQuantity()
+  let addToCart = document.createElement('button')
+  addToCart.className = 'addCart-button'
+  addToCart.textContent = 'Add to cart'
+  addToCart.addEventListener('click', function () {
+    // increaseQuantity(state.selectedBook)
+    console.log('nothing happens')
   })
 
 
