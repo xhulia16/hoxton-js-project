@@ -1,5 +1,6 @@
 import './style.css'
-type CartPerUser={
+
+type CartPerUser = {
   id: number
   userId: number
   bookId: number
@@ -36,6 +37,7 @@ type State = {
   currentUser: User | null,
   errorMessage: string | null
   cartPerUser: CartPerUser[] | null
+  modal: 'cart' | ''
 }
 
 let state: State = {
@@ -45,17 +47,37 @@ let state: State = {
   selectedBook: null,
   currentUser: null,
   errorMessage: null,
-  cartPerUser: null
+  cartPerUser: null,
+  modal: ''
+}
+
+function renderCartModal(mainEl: Element) {
+
+  let wrapperEl = document.createElement('div')
+  wrapperEl.className = 'modal-wrapper'
+
+  let containerEl = document.createElement('div')
+  containerEl.className = 'modal-container'
+
+  let titleEl = document.createElement('h2')
+  titleEl.textContent = 'Items in your cart '
+
+  let closeButton = document.createElement('button')
+  closeButton.textContent = 'x'
+
+  containerEl.append(titleEl, closeButton)
+  wrapperEl.append(containerEl)
+  mainEl.append(wrapperEl)
 }
 
 function getCartForLoggedInUser() {
   fetch(`http://localhost:3005/cartPerUser?userId_like=${state.currentUser?.id}`)
-  .then(resp => resp.json())
-  .then(dataFromServer =>{
-state.cartPerUser=dataFromServer
-render()
-  })
-  }
+    .then(resp => resp.json())
+    .then(dataFromServer => {
+      state.cartPerUser = dataFromServer
+      render()
+    })
+}
 
 //window.getCartForLoggedInUser=getCartForLoggedInUser
 
@@ -182,8 +204,8 @@ function createFormSingIn() {
     render()
   })
 
-  let logInMessage=document.createElement('h3')
-  logInMessage.textContent=state.errorMessage
+  let logInMessage = document.createElement('h3')
+  logInMessage.textContent = state.errorMessage
 
   let backbuttonEl = document.createElement("button")
   backbuttonEl.textContent = "⬅Back"
@@ -197,7 +219,7 @@ function createFormSingIn() {
   mainbodyEl.append(formEl, backbuttonEl)
 
 
-mainEl.append(mainbodyEl )
+  mainEl.append(mainbodyEl)
 
 }
 function renderHeader() {
@@ -255,15 +277,16 @@ function renderHeader() {
   }
 
   let userProfileEL = document.createElement('button')
-  if (state.currentUser===null){
+  if (state.currentUser === null) {
     userProfileEL.textContent = 'Log in'
-  userProfileEL.addEventListener("click", function () {
-    state.show = 'login'
-    render()
-  })}
-  else{
+    userProfileEL.addEventListener("click", function () {
+      state.show = 'login'
+      render()
+    })
+  }
+  else {
     userProfileEL.textContent = 'Log out'
-    userProfileEL.addEventListener('click', function(){
+    userProfileEL.addEventListener('click', function () {
       state.currentUser = null;
       state.errorMessage = null;
       localStorage.clear();
@@ -313,16 +336,18 @@ function renderBookDetails() {
   let addToCart = document.createElement('button')
   addToCart.className = 'addCart-button'
   addToCart.textContent = 'Add to cart'
-  if(state.currentUser===null){
+  if (state.currentUser === null) {
     addToCart.addEventListener('click', function () {
-      state.show='login'
+      state.show = 'login'
       render()
     })
   }
- else{  addToCart.addEventListener('click', function () {
-    // increaseQuantity(state.selectedBook)
-    console.log('nothing happens')
-  })}
+  else {
+    addToCart.addEventListener('click', function () {
+      // increaseQuantity(state.selectedBook)
+      console.log('nothing happens')
+    })
+  }
 
 
   let singleBookDescription = document.createElement("p")
@@ -460,8 +485,10 @@ function render() {
   if (state.show === 'login') createFormSingIn()
 
   if (state.currentUser) {
-state.show='books'
+    state.show = 'books'
   }
+
+  renderCartModal(mainEl)
 }
 
 render()
