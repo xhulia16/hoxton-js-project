@@ -7,7 +7,7 @@ type Review = {
 }
 
 type Book = {
-  id: number
+  id: number 
   author: string
   title: string
   description: string
@@ -42,7 +42,7 @@ function getBookdata() {
 // getBookdata()
 window.state = state
 
-function createReview (content: string, bookId: number) {
+function createReview(content: string, bookId: number) {
   fetch('http://localhost:3005/reviews', {
     method: 'POST',
     headers: {
@@ -54,8 +54,10 @@ function createReview (content: string, bookId: number) {
     })
   })
     .then(resp => resp.json())
-    .then(newComment => {
-      getBookdata()
+    .then(newReview => {
+      let book = state.books.find(book=> book.id === newReview.bookId)
+         book?.reviews.push(newReview)
+        render()
     })
 }
 
@@ -75,93 +77,93 @@ function filterBook(newFilter: string) {
 function selectBook(book: Book) {
   state.show = 'details'
   state.selectedBook = book
-} 
-function createFormSingIn(){
+}
+function createFormSingIn() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
-  let mainbodyEl=document.createElement("body")
-  mainbodyEl.className="bodyform"
+  let mainbodyEl = document.createElement("body")
+  mainbodyEl.className = "bodyform"
 
-  let formEl=document.createElement("form")
-  formEl.className="formEl"
-  let divEl=document.createElement("div")
-divEl.className=("login")
-let h2El=document.createElement("h2")
-h2El.textContent=("Login")
+  let formEl = document.createElement("form")
+  formEl.className = "formEl"
+  let divEl = document.createElement("div")
+  divEl.className = ("login")
+  let h2El = document.createElement("h2")
+  h2El.textContent = ("Login")
 
-let labelEl=document.createElement("label")
-labelEl.setAttribute("for", 'name');
-labelEl.textContent="Username"
-let inputEl=document.createElement("input")
-inputEl.className="input"
-inputEl.id="name"
-inputEl.type="text"
-inputEl.name="name"
-inputEl.minLength=3
-inputEl.maxLength=20
-inputEl.placeholder="👩🏻🧑🏻Type your username"
-var brEl = document.createElement('br');
+  let labelEl = document.createElement("label")
+  labelEl.setAttribute("for", 'name');
+  labelEl.textContent = "Username"
+  let inputEl = document.createElement("input")
+  inputEl.className = "input"
+  inputEl.id = "name"
+  inputEl.type = "text"
+  inputEl.name = "name"
+  inputEl.minLength = 3
+  inputEl.maxLength = 20
+  inputEl.placeholder = "👩🏻🧑🏻Type your username"
+  var brEl = document.createElement('br');
 
-let label2El=document.createElement("label")
-label2El.setAttribute("for", 'email');
- label2El.textContent="Password"
-let input2El=document.createElement("input")
-input2El.className="input"
-input2El.id="password"
-input2El.type="password"
-input2El.name="paswword"
-input2El.minLength=7
-input2El.placeholder="🔑Type your pasword"
-let pEl=document.createElement("p")
-pEl.textContent="Forgot password?"
-var br2El = document.createElement('br')
-divEl.append(h2El,labelEl,inputEl, brEl, label2El, input2El,pEl,br2El)
+  let label2El = document.createElement("label")
+  label2El.setAttribute("for", 'email');
+  label2El.textContent = "Password"
+  let input2El = document.createElement("input")
+  input2El.className = "input"
+  input2El.id = "password"
+  input2El.type = "password"
+  input2El.name = "paswword"
+  input2El.minLength = 7
+  input2El.placeholder = "🔑Type your pasword"
+  let pEl = document.createElement("p")
+  pEl.textContent = "Forgot password?"
+  var br2El = document.createElement('br')
+  divEl.append(h2El, labelEl, inputEl, brEl, label2El, input2El, pEl, br2El)
 
-let buttonEl=document.createElement("button")
-buttonEl.className="button"
-buttonEl.type="button"
-buttonEl.textContent="LOGIN"
-let p2El=document.createElement("p")
-p2El.className="text"
-p2El.textContent="Or Sign Up Using"
-let div2El=document.createElement("div")
-div2El.className="icon"
+  let buttonEl = document.createElement("button")
+  buttonEl.className = "button"
+  buttonEl.type = "button"
+  buttonEl.textContent = "LOGIN"
+  let p2El = document.createElement("p")
+  p2El.className = "text"
+  p2El.textContent = "Or Sign Up Using"
+  let div2El = document.createElement("div")
+  div2El.className = "icon"
 
-let fbEl=document.createElement("img")
-fbEl.src="src/imageForm/facebbok.jpg"
-fbEl.width=30
+  let fbEl = document.createElement("img")
+  fbEl.src = "src/imageForm/facebbok.jpg"
+  fbEl.width = 30
 
-let twitterEl=document.createElement("img")
-twitterEl.src="./src/imageForm/twitter.png"
-twitterEl.width=30
+  let twitterEl = document.createElement("img")
+  twitterEl.src = "./src/imageForm/twitter.png"
+  twitterEl.width = 30
 
-let googleEl=document.createElement("img")
-googleEl.src="./src/imageForm/google.png"
-googleEl.width=50
-div2El.append(fbEl,twitterEl,googleEl)
+  let googleEl = document.createElement("img")
+  googleEl.src = "./src/imageForm/google.png"
+  googleEl.width = 50
+  div2El.append(fbEl, twitterEl, googleEl)
 
-let p3El=document.createElement("p")
-p3El.className="text c1"
-p3El.textContent="Or Sign Up Using"
+  let p3El = document.createElement("p")
+  p3El.className = "text c1"
+  p3El.textContent = "Or Sign Up Using"
 
-let aEl=document.createElement("a")
-aEl.className="text d1"
-aEl.textContent="SIGN UP"
-aEl.href="#"
+  let aEl = document.createElement("a")
+  aEl.className = "text d1"
+  aEl.textContent = "SIGN UP"
+  aEl.href = "#"
 
-formEl.append(divEl,buttonEl,p2El ,div2El, p3El,aEl)
-mainbodyEl.append(formEl)
+  formEl.append(divEl, buttonEl, p2El, div2El, p3El, aEl)
+  mainbodyEl.append(formEl)
 
-let backbuttonEl=document.createElement("button")
-backbuttonEl.textContent="⬅Back"
-backbuttonEl.className="backbutton"
-backbuttonEl.addEventListener("click", function(){
-  state.show="books"
-  render()
-})
+  let backbuttonEl = document.createElement("button")
+  backbuttonEl.textContent = "⬅Back"
+  backbuttonEl.className = "backbutton"
+  backbuttonEl.addEventListener("click", function () {
+    state.show = "books"
+    render()
+  })
 
 
-mainEl.append(mainbodyEl,backbuttonEl)
+  mainEl.append(mainbodyEl, backbuttonEl)
 
 }
 function renderHeader() {
@@ -206,14 +208,13 @@ function renderHeader() {
   let searchBarInput = document.createElement('input')
   searchBarInput.id = 'search-book'
   searchBarInput.name = 'search-bar'
-  searchBarInput.placeholder = 'Search here'
+  searchBarInput.placeholder = 'Search here by title or author'
 
 
   if (searchBarInput) {
     searchBarInput.addEventListener('keydown', function (event) {
       if (searchBarInput == null) return
       if (event.key !== 'Enter') return
-
       filterBook(searchBarInput.value)
       render()
     })
@@ -221,9 +222,9 @@ function renderHeader() {
 
   let userProfileEL = document.createElement('button')
   userProfileEL.textContent = '👤LOGIN'
-  userProfileEL.addEventListener("click", function(){
-state.show='login'
-render()
+  userProfileEL.addEventListener("click", function () {
+    state.show = 'login'
+    render()
   })
   // let userLogInEl = document.createElement('button')
   // userLogInEl.textContent="LOGIN"
@@ -239,7 +240,7 @@ render()
   mainEl.append(headerEl)
 }
 
-function renderBookDetails(bookId:number) {
+function renderBookDetails() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
   if (state.selectedBook === null) return
@@ -296,12 +297,12 @@ function renderBookDetails(bookId:number) {
   let reviewUl = document.createElement('ul')
   reviewUl.className = 'reviews'
 
-  let reviewsText=document.createElement('h3')
-    reviewsText.textContent='Reviews by other users:'
+  let reviewsText = document.createElement('h3')
+  reviewsText.textContent = 'Reviews by other users:'
 
-  for( let review of state.selectedBook.reviews){
-    let reviewLi=document.createElement('li')
-    reviewLi.textContent=review.content
+  for (let review of state.selectedBook.reviews) {
+    let reviewLi = document.createElement('li')
+    reviewLi.textContent = review.content
     reviewUl.append(reviewLi)
   }
 
@@ -310,7 +311,6 @@ function renderBookDetails(bookId:number) {
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
-  // }
   mainEl.append(divEl)
 }
 
@@ -400,7 +400,7 @@ function render() {
   }
   if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
 
-  if(state.show===`login`) createFormSingIn()
+  if (state.show === `login`) createFormSingIn()
 }
 
 render()
