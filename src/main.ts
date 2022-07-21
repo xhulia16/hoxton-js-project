@@ -249,12 +249,10 @@ function renderHeader() {
   leftPaneEl.className = 'header__left-pane'
   let leftNavEl = document.createElement('nav')
   let leftUlEl = document.createElement('ul')
-  let menuTab = document.createElement('li')
-  menuTab.textContent = '='
   let websiteHome = document.createElement('li')
   websiteHome.textContent = 'BookAl Library'
-
-  leftUlEl.append(menuTab, websiteHome)
+  websiteHome.className='website-title'
+  leftUlEl.append(websiteHome)
   leftNavEl.append(leftUlEl)
   leftPaneEl.append(leftNavEl)
 
@@ -266,6 +264,7 @@ function renderHeader() {
 
   let homeBtnLi = document.createElement('li')
   let homeBtn = document.createElement('button')
+  homeBtn.className='header-button'
   homeBtn.textContent = 'Home'
   homeBtn.addEventListener('click', function () {
     state.show = "books"
@@ -275,6 +274,7 @@ function renderHeader() {
   homeBtnLi.append(homeBtn)
   let cartBtnLi = document.createElement('li')
   let cartBtn = document.createElement('button')
+  cartBtn.className='header-button'
   cartBtn.textContent = 'Shopping Cart'
   if (state.currentUser === null) {
     cartBtn.addEventListener('click', function () {
@@ -290,9 +290,6 @@ function renderHeader() {
       render()
     })
   }
-
-
-
   cartBtnLi.append(cartBtn)
 
   let searchBarLi = document.createElement('li')
@@ -300,7 +297,7 @@ function renderHeader() {
   let searchBarInput = document.createElement('input')
   searchBarInput.id = 'search-book'
   searchBarInput.name = 'search-bar'
-  searchBarInput.placeholder = 'Search here by title or author'
+  searchBarInput.placeholder = 'Search for a book'
 
 
   if (searchBarInput) {
@@ -313,6 +310,7 @@ function renderHeader() {
   }
 
   let userProfileEL = document.createElement('button')
+  userProfileEL.className='header-button'
   if (state.currentUser === null) {
     userProfileEL.textContent = 'Log in'
     userProfileEL.addEventListener("click", function () {
@@ -331,7 +329,7 @@ function renderHeader() {
   }
 
   searchBarLi.append(searchBarInput)
-  rightUlEl.append(homeBtnLi, cartBtnLi, searchBarLi, userProfileEL)
+  rightUlEl.append(searchBarLi, homeBtnLi, cartBtnLi, userProfileEL)
   rightNavEl.append(rightUlEl)
   rightPaneEl.append(rightNavEl)
 
