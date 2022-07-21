@@ -235,3 +235,9 @@ margin-bottom: 40px;
   color:rgb(248, 241, 255);
   padding:10px;
 }
+
+.footer{
+  background-color:rgb(248, 241, 255);
+  color:rgb(26, 26, 26);
+  padding-left: 50px;
+}
