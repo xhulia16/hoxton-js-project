@@ -4,11 +4,6 @@
   box-sizing: border-box;
 }
 
-#app{
-  display: grid;
-  width:100%;
-  height:100%;
-}
 
 .header {
   display: grid;
@@ -69,6 +64,15 @@ padding-top: 20px;
 padding:60px
 }
 
+.comment-form{
+  display: grid;
+  grid-auto-flow: column;
+  margin:0;
+  padding:0px;
+  height:fit-content;
+  width:fit-content;
+  justify-content: left;
+}
 .book-details{
   margin-top: 30px;
   display: grid;

@@ -295,10 +295,16 @@ function renderBookDetails() {
   let addToCart = document.createElement('button')
   addToCart.className = 'addCart-button'
   addToCart.textContent = 'Add to cart'
-  addToCart.addEventListener('click', function () {
+  if(state.selectedBook===null){
+    addToCart.addEventListener('click', function () {
+      state.show='login'
+      render()
+    })
+  }
+ else{  addToCart.addEventListener('click', function () {
     // increaseQuantity(state.selectedBook)
     console.log('nothing happens')
-  })
+  })}
 
 
   let singleBookDescription = document.createElement("p")
