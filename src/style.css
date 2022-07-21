@@ -106,8 +106,11 @@ text-align: end;
 
   
 form{
+  display: grid;
+  margin: 88px;
   background-color: white;
-width: 400px;
+width: 350px;
+height:400px;
   display: grid;
   gap: 1rem;
   place-content: center;
@@ -115,6 +118,8 @@ width: 400px;
 }
 .login{
   display: grid;
+  gap:20px;
+ 
 
 
 }
