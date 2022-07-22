@@ -38,6 +38,7 @@ type State = {
   errorMessage: string | null
   cartPerUser: CartPerUser[] | null
   modal: 'cart' | ''
+  userCart: Book[] | null
 }
 
 let state: State = {
@@ -48,7 +49,8 @@ let state: State = {
   currentUser: null,
   errorMessage: null,
   cartPerUser: null,
-  modal: ''
+  modal: '',
+  userCart: null
 }
 
 function getCartForLoggedInUser() {
@@ -73,12 +75,13 @@ function getBooksForUser() {
 
   // for every cartItem for the current user -> transform bookId into full book from state.books
   const booksInCart = cartItemsForThisUser.map(cartItem => findBookById(cartItem.bookId))
+  state.userCart = booksInCart
   return booksInCart
 }
-window.getBooksForUser=getBooksForUser
+window.getBooksForUser = getBooksForUser
 
 function renderCartModal(mainEl: Element) {
-  if (state.cartPerUser === null) return
+  if (state.userCart === null) return
 
   let wrapperEl = document.createElement('div')
   wrapperEl.className = 'modal-wrapper'
@@ -89,6 +92,36 @@ function renderCartModal(mainEl: Element) {
   let titleEl = document.createElement('h2')
   titleEl.textContent = 'Items in your cart:'
 
+  let listCartItemsContainer = document.createElement('div')
+  listCartItemsContainer.className='book-list__cart'
+
+  for (let item of state.userCart) {
+    let listCartItem = document.createElement("div")
+    listCartItem.className='single-book__cart'
+    let imgDiv = document.createElement('div')
+    imgDiv.className='img-div__cart'
+    let bookImg = document.createElement('img')
+    bookImg.className='book-cover__cart'
+    bookImg.src = item.cover
+
+    imgDiv.append(bookImg)
+
+    let detailsDiv = document.createElement('div')
+    let bookTitle = document.createElement('h3')
+    bookTitle.textContent = item.title
+
+    let bookAuthor = document.createElement('h3')
+    bookAuthor.textContent = item.author
+
+    let bookPrice = document.createElement('h3')
+    bookPrice.textContent = `£${item.price}`
+
+    detailsDiv.append(bookTitle, bookAuthor, bookPrice)
+    listCartItem.append(imgDiv, detailsDiv)
+    listCartItemsContainer.append(listCartItem)
+
+  }
+
   let closeButton = document.createElement('button')
   closeButton.className = 'modal-button'
   closeButton.textContent = 'x'
@@ -97,7 +130,7 @@ function renderCartModal(mainEl: Element) {
     render()
   })
 
-  containerEl.append(titleEl, closeButton)
+  containerEl.append(titleEl, listCartItemsContainer, closeButton)
   wrapperEl.append(containerEl)
   mainEl.append(wrapperEl)
 }
@@ -251,7 +284,7 @@ function renderHeader() {
   let leftUlEl = document.createElement('ul')
   let websiteHome = document.createElement('li')
   websiteHome.textContent = 'BookAl Library'
-  websiteHome.className='website-title'
+  websiteHome.className = 'website-title'
   leftUlEl.append(websiteHome)
   leftNavEl.append(leftUlEl)
   leftPaneEl.append(leftNavEl)
@@ -264,7 +297,7 @@ function renderHeader() {
 
   let homeBtnLi = document.createElement('li')
   let homeBtn = document.createElement('button')
-  homeBtn.className='header-button'
+  homeBtn.className = 'header-button'
   homeBtn.textContent = 'Home'
   homeBtn.addEventListener('click', function () {
     state.show = "books"
@@ -274,7 +307,7 @@ function renderHeader() {
   homeBtnLi.append(homeBtn)
   let cartBtnLi = document.createElement('li')
   let cartBtn = document.createElement('button')
-  cartBtn.className='header-button'
+  cartBtn.className = 'header-button'
   cartBtn.textContent = 'Shopping Cart'
   if (state.currentUser === null) {
     cartBtn.addEventListener('click', function () {
@@ -285,6 +318,7 @@ function renderHeader() {
   else {
     cartBtn.addEventListener('click', function () {
       getCartForLoggedInUser()
+      getBooksForUser()
       state.modal = 'cart'
       console.log('it works?')
       render()
@@ -310,7 +344,7 @@ function renderHeader() {
   }
 
   let userProfileEL = document.createElement('button')
-  userProfileEL.className='header-button'
+  userProfileEL.className = 'header-button'
   if (state.currentUser === null) {
     userProfileEL.textContent = 'Log in'
     userProfileEL.addEventListener("click", function () {
@@ -365,7 +399,7 @@ function renderBookDetails() {
   singleBookAuthor.textContent = `Author: ${state.selectedBook?.author}`
 
   let singleBookPrice = document.createElement('h3')
-  singleBookPrice.className='book-price'
+  singleBookPrice.className = 'book-price'
   singleBookPrice.textContent = `Price: £${state.selectedBook?.price}`
 
   let addToCart = document.createElement('button')
@@ -449,7 +483,7 @@ function renderBookList() {
 
   for (let item of filteredBooks) {
     let bookItemEl = document.createElement('div')
-    bookItemEl.className='single-book'
+    bookItemEl.className = 'single-book'
     bookItemEl.addEventListener('click', function () {
       selectBook(item)
       render()
@@ -467,7 +501,7 @@ function renderBookList() {
     bookAuthorEl.textContent = item.author
 
     let bookPriceEl = document.createElement("h4")
-    bookPriceEl.className='book-price'
+    bookPriceEl.className = 'book-price'
     bookPriceEl.textContent = `£ ${item.price}`
 
     bookItemEl.append(bookCoverEl, bookTitleEl, bookAuthorEl, bookPriceEl)
