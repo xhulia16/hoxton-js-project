@@ -80,18 +80,18 @@ function getBooksForUser() {
 }
 window.getBooksForUser = getBooksForUser
 
-function getCartPriceTotal(){
-  if(state.userCart===null) return
-  let totalPrice=0
-  for(let item of state.userCart){
-totalPrice=totalPrice+ item.price
+function getCartPriceTotal() {
+  if (state.userCart === null) return
+  let totalPrice = 0
+  for (let item of state.userCart) {
+    totalPrice = totalPrice + item.price
   }
-  return(totalPrice)
+  return (totalPrice)
 }
 
-window.getCartPriceTotal=getCartPriceTotal
+window.getCartPriceTotal = getCartPriceTotal
 
-function postToCart(userId: number, bookId:number){
+function postToCart(userId: number, bookId: number) {
   fetch('http://localhost:3005/cartPerUser', {
     method: 'POST',
     headers: {
@@ -123,15 +123,15 @@ function renderCartModal(mainEl: Element) {
   titleEl.textContent = 'Items in your cart:'
 
   let listCartItemsContainer = document.createElement('div')
-  listCartItemsContainer.className='book-list__cart'
+  listCartItemsContainer.className = 'book-list__cart'
 
   for (let item of state.userCart) {
     let listCartItem = document.createElement("div")
-    listCartItem.className='single-book__cart'
+    listCartItem.className = 'single-book__cart'
     let imgDiv = document.createElement('div')
-    imgDiv.className='img-div__cart'
+    imgDiv.className = 'img-div__cart'
     let bookImg = document.createElement('img')
-    bookImg.className='book-cover__cart'
+    bookImg.className = 'book-cover__cart'
     bookImg.src = item.cover
 
     imgDiv.append(bookImg)
@@ -149,10 +149,10 @@ function renderCartModal(mainEl: Element) {
     detailsDiv.append(bookTitle, bookAuthor, bookPrice)
     listCartItem.append(imgDiv, detailsDiv)
     listCartItemsContainer.append(listCartItem)
-}
-    let totalPriceEl=document.createElement('h4')
-    totalPriceEl.className='total-price__cart'
-    totalPriceEl.textContent=`Total Price: £${getCartPriceTotal()}`
+  }
+  let totalPriceEl = document.createElement('h4')
+  totalPriceEl.className = 'total-price__cart'
+  totalPriceEl.textContent = `Total Price: £${getCartPriceTotal()}`
 
 
   let closeButton = document.createElement('button')
@@ -199,12 +199,8 @@ function getBookdata() {
     })
 }
 
-<<<<<<< HEAD
 // getBookdata()
-// window.state = state
-=======
 window.state = state
->>>>>>> 6a65a2a7c3b0cec9207b27af6620a7d6bd186d4e
 
 function createReview(content: string, bookId: number) {
   fetch('http://localhost:3005/reviews', {
@@ -288,6 +284,9 @@ function createFormSingIn() {
   buttonEl.textContent = "LOGIN"
   buttonEl.addEventListener('click', function () {
     logIn(inputEl.value, input2El.value)
+    getCartForLoggedInUser()
+    getBooksForUser()
+    state.show = 'books'
     render()
   })
 
@@ -592,10 +591,6 @@ function render() {
   if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
 
   if (state.show === 'login') createFormSingIn()
-
-  if (state.currentUser) {
-    state.show = 'books'
-  }
 
   if (state.modal === 'cart') renderCartModal(mainEl)
 }

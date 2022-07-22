@@ -212,6 +212,11 @@
       "content": "Enjoyable!",
       "bookId": 5,
       "id": 23
+    },
+    {
+      "content": "Review",
+      "bookId": 8,
+      "id": 24
     }
   ],
   "users": [
@@ -243,16 +248,6 @@
       "id": 2,
       "userId": 2,
       "bookId": 4
-    },
-    {
-      "userId": 1,
-      "bookId": 3,
-      "id": 3
-    },
-    {
-      "userId": 1,
-      "bookId": 4,
-      "id": 4
     }
   ]
 }
