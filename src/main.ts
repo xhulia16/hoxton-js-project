@@ -199,7 +199,12 @@ function getBookdata() {
     })
 }
 
+<<<<<<< HEAD
+// getBookdata()
+// window.state = state
+=======
 window.state = state
+>>>>>>> 6a65a2a7c3b0cec9207b27af6620a7d6bd186d4e
 
 function createReview(content: string, bookId: number) {
   fetch('http://localhost:3005/reviews', {
