@@ -80,6 +80,36 @@ function getBooksForUser() {
 }
 window.getBooksForUser = getBooksForUser
 
+function getCartPriceTotal(){
+  if(state.userCart===null) return
+  let totalPrice=0
+  for(let item of state.userCart){
+totalPrice=totalPrice+ item.price
+  }
+  return(totalPrice)
+}
+
+window.getCartPriceTotal=getCartPriceTotal
+
+function postToCart(userId: number, bookId:number){
+  fetch('http://localhost:3005/cartPerUser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId,
+      bookId
+    })
+  })
+    .then(resp => resp.json())
+    .then(newItemToCart => {
+      let book = state.books.find(book => book.id === newItemToCart.bookId)
+      state.cartPerUser?.push(newItemToCart)
+      render()
+    })
+}
+
 function renderCartModal(mainEl: Element) {
   if (state.userCart === null) return
 
@@ -119,8 +149,11 @@ function renderCartModal(mainEl: Element) {
     detailsDiv.append(bookTitle, bookAuthor, bookPrice)
     listCartItem.append(imgDiv, detailsDiv)
     listCartItemsContainer.append(listCartItem)
+}
+    let totalPriceEl=document.createElement('h4')
+    totalPriceEl.className='total-price__cart'
+    totalPriceEl.textContent=`Total Price: £${getCartPriceTotal()}`
 
-  }
 
   let closeButton = document.createElement('button')
   closeButton.className = 'modal-button'
@@ -130,7 +163,7 @@ function renderCartModal(mainEl: Element) {
     render()
   })
 
-  containerEl.append(titleEl, listCartItemsContainer, closeButton)
+  containerEl.append(titleEl, listCartItemsContainer, totalPriceEl, closeButton)
   wrapperEl.append(containerEl)
   mainEl.append(wrapperEl)
 }
@@ -413,8 +446,7 @@ function renderBookDetails() {
   }
   else {
     addToCart.addEventListener('click', function () {
-      // increaseQuantity(state.selectedBook)
-      console.log('nothing happens')
+      postToCart(state.currentUser?.id, state.selectedBook?.id)
     })
   }
 
@@ -429,6 +461,7 @@ function renderBookDetails() {
     event.preventDefault()
     console.log('new review was posted')
     createReview(reviewInput.value, state.selectedBook?.id)
+    render()
   })
 
   let reviewInput = document.createElement('input')
@@ -441,7 +474,6 @@ function renderBookDetails() {
   submitButton.className = 'comment-button'
   submitButton.type = 'submit'
   submitButton.textContent = 'Post'
-
   addReviewForm.append(reviewInput, submitButton)
 
 

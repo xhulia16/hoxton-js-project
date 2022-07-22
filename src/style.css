@@ -226,7 +226,9 @@ margin-bottom: 40px;
 }
 
 .book-price{
-  color:rgb(230,74,47)
+  color:rgb(230,74,47);
+  font-size: larger;
+
 }
 .comment-button,
 .addCart-button{
