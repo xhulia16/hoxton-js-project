@@ -146,14 +146,17 @@ function renderCartModal(mainEl: Element) {
     let bookPrice = document.createElement('h3')
     bookPrice.textContent = `£${item.price}`
 
-    detailsDiv.append(bookTitle, bookAuthor, bookPrice)
+    let removeBtn=document.createElement('button')
+    removeBtn.className='remove-cart'
+    removeBtn.textContent='Remove from Cart'
+
+    detailsDiv.append(bookTitle, bookAuthor, bookPrice, removeBtn)
     listCartItem.append(imgDiv, detailsDiv)
     listCartItemsContainer.append(listCartItem)
   }
   let totalPriceEl = document.createElement('h4')
   totalPriceEl.className = 'total-price__cart'
   totalPriceEl.textContent = `Total Price: £${getCartPriceTotal()}`
-
 
   let closeButton = document.createElement('button')
   closeButton.className = 'modal-button'

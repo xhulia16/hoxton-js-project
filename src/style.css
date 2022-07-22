@@ -230,14 +230,24 @@ margin-bottom: 40px;
   font-size: larger;
 
 }
+
+.remove-cart,
 .comment-button,
 .addCart-button{
   border:rgb(146, 57, 146);
   background-color:rgb(202, 79, 202);
   color:rgb(248, 241, 255);
   padding:10px;
+  margin:5px;
 }
 
+.modal-button{
+  place-items: center;
+  border:rgb(146, 57, 146);
+  background-color:rgb(202, 79, 202);
+  color:rgb(248, 241, 255);
+  margin:5px;
+}
 .footer{
   background-color:rgb(248, 241, 255);
   color:rgb(26, 26, 26);
@@ -265,3 +275,4 @@ margin-bottom: 40px;
 .img-div__cart{
   width: fit-content;
 }
+
