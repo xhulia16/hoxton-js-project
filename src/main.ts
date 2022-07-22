@@ -40,7 +40,7 @@ function getBookdata() {
 }
 
 // getBookdata()
-window.state = state
+// window.state = state
 
 function createReview (content: string, bookId: number) {
   fetch('http://localhost:3005/reviews', {
