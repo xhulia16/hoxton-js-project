@@ -1,5 +1,18 @@
 import './style.css'
 
+type CartPerUser = {
+  id: number
+  userId: number
+  bookId: number
+}
+
+type User = {
+  email: string
+  name: string
+  password: string
+  id: number
+}
+
 type Review = {
   id: number
   content: string
@@ -19,16 +32,130 @@ type Book = {
 type State = {
   books: Book[],
   fillter: string,
-  show: 'books' | 'details',
-  selectedBook: Book | null
+  show: 'books' | 'details' | 'login',
+  selectedBook: Book | null,
+  currentUser: User | null,
+  errorMessage: string | null
+  cartPerUser: CartPerUser[] | null
+  modal: 'cart' | ''
+  userCart: Book[] | null
 }
 
 let state: State = {
   books: [],
   fillter: "",
   show: "books",
-  selectedBook: null
+  selectedBook: null,
+  currentUser: null,
+  errorMessage: null,
+  cartPerUser: null,
+  modal: '',
+  userCart: null
 }
+
+function getCartForLoggedInUser() {
+  fetch(`http://localhost:3005/cartPerUser?userId_like=${state.currentUser?.id}`)
+    .then(resp => resp.json())
+    .then(dataFromServer => {
+      state.cartPerUser = dataFromServer
+      render()
+    })
+}
+
+function getBooksForUser() {
+  // filter out cartItems, to only get ones that belong to loggedInUser.id
+  if (state.cartPerUser === null) return
+  if (state.currentUser === null) return
+  const cartItemsForThisUser = state.cartPerUser.filter(cartItem =>
+    cartItem.userId === state.currentUser.id)
+
+  function findBookById(idParam: number) {
+    return state.books.find(bookInBooks => bookInBooks.id === idParam)
+  }
+
+  // for every cartItem for the current user -> transform bookId into full book from state.books
+  const booksInCart = cartItemsForThisUser.map(cartItem => findBookById(cartItem.bookId))
+  state.userCart = booksInCart
+  return booksInCart
+}
+window.getBooksForUser = getBooksForUser
+
+function renderCartModal(mainEl: Element) {
+  if (state.userCart === null) return
+
+  let wrapperEl = document.createElement('div')
+  wrapperEl.className = 'modal-wrapper'
+
+  let containerEl = document.createElement('div')
+  containerEl.className = 'modal-container'
+
+  let titleEl = document.createElement('h2')
+  titleEl.textContent = 'Items in your cart:'
+
+  let listCartItemsContainer = document.createElement('div')
+  listCartItemsContainer.className='book-list__cart'
+
+  for (let item of state.userCart) {
+    let listCartItem = document.createElement("div")
+    listCartItem.className='single-book__cart'
+    let imgDiv = document.createElement('div')
+    imgDiv.className='img-div__cart'
+    let bookImg = document.createElement('img')
+    bookImg.className='book-cover__cart'
+    bookImg.src = item.cover
+
+    imgDiv.append(bookImg)
+
+    let detailsDiv = document.createElement('div')
+    let bookTitle = document.createElement('h3')
+    bookTitle.textContent = item.title
+
+    let bookAuthor = document.createElement('h3')
+    bookAuthor.textContent = item.author
+
+    let bookPrice = document.createElement('h3')
+    bookPrice.textContent = `£${item.price}`
+
+    detailsDiv.append(bookTitle, bookAuthor, bookPrice)
+    listCartItem.append(imgDiv, detailsDiv)
+    listCartItemsContainer.append(listCartItem)
+
+  }
+
+  let closeButton = document.createElement('button')
+  closeButton.className = 'modal-button'
+  closeButton.textContent = 'x'
+  closeButton.addEventListener('click', function () {
+    state.modal = ''
+    render()
+  })
+
+  containerEl.append(titleEl, listCartItemsContainer, closeButton)
+  wrapperEl.append(containerEl)
+  mainEl.append(wrapperEl)
+}
+
+function logIn(email: string, password: string) {
+  fetch('http://localhost:3005/users')
+    .then(r => r.json())
+    .then((users: User[]) => {
+
+      const foundUser = users.find(user =>
+        user.email.toLowerCase() === email.toLowerCase() &&
+        user.password === password
+      )
+
+      if (foundUser) {
+        state.currentUser = foundUser;
+        localStorage.id = foundUser.id;
+      } else {
+        state.errorMessage = 'No user found!'
+      }
+
+      render();
+    })
+}
+
 
 function getBookdata() {
   fetch('http://localhost:3005/books')
@@ -39,10 +166,14 @@ function getBookdata() {
     })
 }
 
+<<<<<<< HEAD
 // getBookdata()
 // window.state = state
+=======
+window.state = state
+>>>>>>> 6a65a2a7c3b0cec9207b27af6620a7d6bd186d4e
 
-function createReview (content: string, bookId: number) {
+function createReview(content: string, bookId: number) {
   fetch('http://localhost:3005/reviews', {
     method: 'POST',
     headers: {
@@ -54,8 +185,10 @@ function createReview (content: string, bookId: number) {
     })
   })
     .then(resp => resp.json())
-    .then(newComment => {
-      getBookdata()
+    .then(newReview => {
+      let book = state.books.find(book => book.id === newReview.bookId)
+      book?.reviews.push(newReview)
+      render()
     })
 }
 
@@ -75,93 +208,72 @@ function filterBook(newFilter: string) {
 function selectBook(book: Book) {
   state.show = 'details'
   state.selectedBook = book
-} 
-function createFormSingIn(){
+}
+function createFormSingIn() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
-  let mainbodyEl=document.createElement("body")
-  mainbodyEl.className="bodyform"
 
-  let formEl=document.createElement("form")
-  formEl.className="formEl"
-  let divEl=document.createElement("div")
-divEl.className=("login")
-let h2El=document.createElement("h2")
-h2El.textContent=("Login")
+  let mainbodyEl = document.createElement("body")
+  mainbodyEl.className = "bodyform"
 
-let labelEl=document.createElement("label")
-labelEl.setAttribute("for", 'name');
-labelEl.textContent="Username"
-let inputEl=document.createElement("input")
-inputEl.className="input"
-inputEl.id="name"
-inputEl.type="text"
-inputEl.name="name"
-inputEl.minLength=3
-inputEl.maxLength=20
-inputEl.placeholder="👩🏻🧑🏻Type your username"
-var brEl = document.createElement('br');
+  let formEl = document.createElement("form")
+  formEl.className = "formEl"
 
-let label2El=document.createElement("label")
-label2El.setAttribute("for", 'email');
- label2El.textContent="Password"
-let input2El=document.createElement("input")
-input2El.className="input"
-input2El.id="password"
-input2El.type="password"
-input2El.name="paswword"
-input2El.minLength=7
-input2El.placeholder="🔑Type your pasword"
-let pEl=document.createElement("p")
-pEl.textContent="Forgot password?"
-var br2El = document.createElement('br')
-divEl.append(h2El,labelEl,inputEl, brEl, label2El, input2El,pEl,br2El)
+  let divEl = document.createElement("div")
+  divEl.className = ("login")
+  let h2El = document.createElement("h2")
+  h2El.textContent = ("Login")
 
-let buttonEl=document.createElement("button")
-buttonEl.className="button"
-buttonEl.type="button"
-buttonEl.textContent="LOGIN"
-let p2El=document.createElement("p")
-p2El.className="text"
-p2El.textContent="Or Sign Up Using"
-let div2El=document.createElement("div")
-div2El.className="icon"
+  let labelEl = document.createElement("label")
+  labelEl.setAttribute("for", 'name');
+  labelEl.textContent = "Email"
+  let inputEl = document.createElement("input")
+  inputEl.className = "input"
+  inputEl.id = "name"
+  inputEl.type = "text"
+  inputEl.name = "name"
+  inputEl.minLength = 3
+  inputEl.maxLength = 20
+  inputEl.placeholder = "Type your email"
+  var brEl = document.createElement('br');
 
-let fbEl=document.createElement("img")
-fbEl.src="src/imageForm/facebbok.jpg"
-fbEl.width=30
+  let label2El = document.createElement("label")
+  label2El.setAttribute("for", 'email');
+  label2El.textContent = "Password"
+  let input2El = document.createElement("input")
+  input2El.className = "input"
+  input2El.id = "password"
+  input2El.type = "password"
+  input2El.name = "paswword"
+  input2El.placeholder = "Type your pasword"
+  var br2El = document.createElement('br')
+  divEl.append(h2El, labelEl, inputEl, brEl, label2El, input2El, br2El)
 
-let twitterEl=document.createElement("img")
-twitterEl.src="./src/imageForm/twitter.png"
-twitterEl.width=30
+  let buttonEl = document.createElement("button")
+  buttonEl.className = "button"
+  buttonEl.type = "button"
+  buttonEl.textContent = "LOGIN"
+  buttonEl.addEventListener('click', function () {
+    logIn(inputEl.value, input2El.value)
+    render()
+  })
 
-let googleEl=document.createElement("img")
-googleEl.src="./src/imageForm/google.png"
-googleEl.width=50
-div2El.append(fbEl,twitterEl,googleEl)
+  let logInMessage = document.createElement('h3')
+  logInMessage.textContent = state.errorMessage
 
-let p3El=document.createElement("p")
-p3El.className="text c1"
-p3El.textContent="Or Sign Up Using"
+  let backbuttonEl = document.createElement("button")
+  backbuttonEl.textContent = "⬅Back"
+  backbuttonEl.className = "backbutton"
+  backbuttonEl.addEventListener("click", function () {
+    state.show = "books"
+    render()
+  })
 
-let aEl=document.createElement("a")
-aEl.className="text d1"
-aEl.textContent="SIGN UP"
-aEl.href="#"
-
-formEl.append(divEl,buttonEl,p2El ,div2El, p3El,aEl)
-mainbodyEl.append(formEl)
-
-let backbuttonEl=document.createElement("button")
-backbuttonEl.textContent="⬅Back"
-backbuttonEl.className="backbutton"
-backbuttonEl.addEventListener("click", function(){
-  state.show="books"
-  render()
-})
+  formEl.append(divEl, logInMessage, buttonEl)
+  mainbodyEl.append(formEl, backbuttonEl)
 
 
-mainEl.append(mainbodyEl,backbuttonEl)
+  mainEl.append(mainbodyEl)
 
 }
 function renderHeader() {
@@ -175,12 +287,10 @@ function renderHeader() {
   leftPaneEl.className = 'header__left-pane'
   let leftNavEl = document.createElement('nav')
   let leftUlEl = document.createElement('ul')
-  let menuTab = document.createElement('li')
-  menuTab.textContent = '='
   let websiteHome = document.createElement('li')
   websiteHome.textContent = 'BookAl Library'
-
-  leftUlEl.append(menuTab, websiteHome)
+  websiteHome.className = 'website-title'
+  leftUlEl.append(websiteHome)
   leftNavEl.append(leftUlEl)
   leftPaneEl.append(leftNavEl)
 
@@ -192,45 +302,73 @@ function renderHeader() {
 
   let homeBtnLi = document.createElement('li')
   let homeBtn = document.createElement('button')
+  homeBtn.className = 'header-button'
   homeBtn.textContent = 'Home'
-  homeBtn.type = 'submit'
   homeBtn.addEventListener('click', function () {
     state.show = "books"
     render()
   })
 
   homeBtnLi.append(homeBtn)
+  let cartBtnLi = document.createElement('li')
+  let cartBtn = document.createElement('button')
+  cartBtn.className = 'header-button'
+  cartBtn.textContent = 'Shopping Cart'
+  if (state.currentUser === null) {
+    cartBtn.addEventListener('click', function () {
+      state.show = 'login'
+      render()
+    })
+  }
+  else {
+    cartBtn.addEventListener('click', function () {
+      getCartForLoggedInUser()
+      getBooksForUser()
+      state.modal = 'cart'
+      console.log('it works?')
+      render()
+    })
+  }
+  cartBtnLi.append(cartBtn)
 
   let searchBarLi = document.createElement('li')
 
   let searchBarInput = document.createElement('input')
   searchBarInput.id = 'search-book'
   searchBarInput.name = 'search-bar'
-  searchBarInput.placeholder = 'Search here'
+  searchBarInput.placeholder = 'Search for a book'
 
 
   if (searchBarInput) {
     searchBarInput.addEventListener('keydown', function (event) {
       if (searchBarInput == null) return
       if (event.key !== 'Enter') return
-
       filterBook(searchBarInput.value)
       render()
     })
   }
 
   let userProfileEL = document.createElement('button')
-  userProfileEL.textContent = '👤LOGIN'
-  userProfileEL.addEventListener("click", function(){
-state.show='login'
-render()
-  })
-  // let userLogInEl = document.createElement('button')
-  // userLogInEl.textContent="LOGIN"
-
+  userProfileEL.className = 'header-button'
+  if (state.currentUser === null) {
+    userProfileEL.textContent = 'Log in'
+    userProfileEL.addEventListener("click", function () {
+      state.show = 'login'
+      render()
+    })
+  }
+  else {
+    userProfileEL.textContent = 'Log out'
+    userProfileEL.addEventListener('click', function () {
+      state.currentUser = null;
+      state.errorMessage = null;
+      localStorage.clear();
+      render();
+    })
+  }
 
   searchBarLi.append(searchBarInput)
-  rightUlEl.append(homeBtnLi, searchBarLi, userProfileEL)
+  rightUlEl.append(searchBarLi, homeBtnLi, cartBtnLi, userProfileEL)
   rightNavEl.append(rightUlEl)
   rightPaneEl.append(rightNavEl)
 
@@ -239,7 +377,7 @@ render()
   mainEl.append(headerEl)
 }
 
-function renderBookDetails(bookId:number) {
+function renderBookDetails() {
   let mainEl = document.querySelector('#app')
   if (mainEl === null) return
   if (state.selectedBook === null) return
@@ -266,7 +404,25 @@ function renderBookDetails(bookId:number) {
   singleBookAuthor.textContent = `Author: ${state.selectedBook?.author}`
 
   let singleBookPrice = document.createElement('h3')
+  singleBookPrice.className = 'book-price'
   singleBookPrice.textContent = `Price: £${state.selectedBook?.price}`
+
+  let addToCart = document.createElement('button')
+  addToCart.className = 'addCart-button'
+  addToCart.textContent = 'Add to cart'
+  if (state.currentUser === null) {
+    addToCart.addEventListener('click', function () {
+      state.show = 'login'
+      render()
+    })
+  }
+  else {
+    addToCart.addEventListener('click', function () {
+      // increaseQuantity(state.selectedBook)
+      console.log('nothing happens')
+    })
+  }
+
 
   let singleBookDescription = document.createElement("p")
   singleBookDescription.className = 'book-description__paragraph'
@@ -293,24 +449,24 @@ function renderBookDetails(bookId:number) {
 
   addReviewForm.append(reviewInput, submitButton)
 
+
   let reviewUl = document.createElement('ul')
   reviewUl.className = 'reviews'
 
-  let reviewsText=document.createElement('h3')
-    reviewsText.textContent='Reviews by other users:'
+  let reviewsText = document.createElement('h3')
+  reviewsText.textContent = 'Reviews by other users:'
 
-  for( let review of state.selectedBook.reviews){
-    let reviewLi=document.createElement('li')
-    reviewLi.textContent=review.content
+  for (let review of state.selectedBook.reviews) {
+    let reviewLi = document.createElement('li')
+    reviewLi.textContent = review.content
     reviewUl.append(reviewLi)
   }
 
 
-  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, singleBookDescription, addReviewForm, reviewsText, reviewUl)
+  bookDetailsDiv.append(singleBookTitle, singleBookAuthor, singleBookPrice, addToCart, singleBookDescription, addReviewForm, reviewsText, reviewUl)
 
   main1El.append(imgDiv, bookDetailsDiv)
   divEl.append(main1El)
-  // }
   mainEl.append(divEl)
 }
 
@@ -332,6 +488,7 @@ function renderBookList() {
 
   for (let item of filteredBooks) {
     let bookItemEl = document.createElement('div')
+    bookItemEl.className = 'single-book'
     bookItemEl.addEventListener('click', function () {
       selectBook(item)
       render()
@@ -349,6 +506,7 @@ function renderBookList() {
     bookAuthorEl.textContent = item.author
 
     let bookPriceEl = document.createElement("h4")
+    bookPriceEl.className = 'book-price'
     bookPriceEl.textContent = `£ ${item.price}`
 
     bookItemEl.append(bookCoverEl, bookTitleEl, bookAuthorEl, bookPriceEl)
@@ -382,8 +540,9 @@ function renderFooter() {
 
   contactUsUl.append(websiteNameLi, phoneNumberLi, addressLi)
   contactUsEl.append(contactUsUl)
+  footerMainEl.append(contactUsEl)
 
-  mainEl.append(contactUsEl)
+  mainEl.append(footerMainEl)
 
 }
 
@@ -400,7 +559,13 @@ function render() {
   }
   if (state.show === 'details') renderHeader(), renderBookDetails(), renderFooter()
 
-  if(state.show===`login`) createFormSingIn()
+  if (state.show === 'login') createFormSingIn()
+
+  if (state.currentUser) {
+    state.show = 'books'
+  }
+
+  if (state.modal === 'cart') renderCartModal(mainEl)
 }
 
 render()

@@ -1,4 +1,4 @@
-{
+{ 
   "/books": "/books?_embed=reviews",
   "/books/*": "/books/$1?_embed=reviews"
 }

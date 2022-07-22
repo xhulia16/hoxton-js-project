@@ -1,15 +1,15 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: 0;
+  box-sizing: border-box;
 }
+
 
 .header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-
-  background-color: blueviolet;
-  padding: 30px;
+  background-color: rgb(202, 79, 202);
+  padding: 10px;
 }
 
 .header__left-pane{
@@ -26,7 +26,7 @@ place-items: center;
 
 .main-page {
   height: max-content;
-  background-color: rgb(219, 181, 255);
+  background-color: rgb(251, 249, 253);
 }
 
 ul {
@@ -40,8 +40,9 @@ ul {
   width:150px;
 }
 .books-display{
+  
   display: grid;  
-  padding:30px;
+  padding:40px;
   grid-template-columns: repeat(6, 1fr);
 }
 
@@ -52,7 +53,7 @@ ul {
 }
 
 .main-page__text{
-padding-top: 20px;
+padding-top: 40px;
 }
 
 .main__detailBook{
@@ -62,7 +63,20 @@ padding-top: 20px;
  width:fit-content;
 padding:60px
 }
-
+.addCart-button{
+  width:fit-content;
+  height:fit-content;
+  padding:10px;
+}
+.comment-form{
+  display: grid;
+  grid-auto-flow: column;
+  margin:0;
+  padding:0px;
+  height:fit-content;
+  width:fit-content;
+  justify-content: left;
+}
 .book-details{
   margin-top: 30px;
   display: grid;
@@ -100,8 +114,11 @@ text-align: end;
 
   
 form{
+  display: grid;
+  margin: 88px;
   background-color: white;
-width: 400px;
+width: 350px;
+height:400px;
   display: grid;
   gap: 1rem;
   place-content: center;
@@ -109,6 +126,8 @@ width: 400px;
 }
 .login{
   display: grid;
+  gap:20px;
+ 
 
 
 }
@@ -149,12 +168,98 @@ width: 400px;
   border-radius: 5px;
   padding: 10px;
   background:gainsboro;
-  margin-left: 400px;
   margin-top: 20px;
+  margin:20px;
 }
 .reviews{
   display: grid;
   grid-auto-flow: row;
   gap:5px;
 
+}
+
+.modal-wrapper{
+  position:absolute;
+  top: 25vh;
+  left:75vh;
+  background-color: rgba(0, 0, 0, 0.281);
+  padding: 2rem;
+  width: fit-content;
+  height:fit-content;
+  display: grid;
+  place-content: center;
+  backdrop-filter: blur(5px);
+}
+body{
+margin:0;
+}
+.modal-button{
+  width:20px;
+}
+.modal-container{
+  background-color: #e9dbe8;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.website-title{
+  font-size: 25px;
+  font-weight: 0;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-left: 40px;
+  color: rgb(248, 241, 255);
+}
+
+.header-button{
+  border: #c0c4e7;
+  background-color: rgb(202, 79, 202);
+  padding-right: 5px;
+  color:rgb(250, 247, 253);
+  font-size: medium;
+}
+
+.single-book{
+  display: grid;
+  place-items: center;
+margin-bottom: 40px;
+}
+
+.book-price{
+  color:rgb(230,74,47)
+}
+.comment-button,
+.addCart-button{
+  border:rgb(146, 57, 146);
+  background-color:rgb(202, 79, 202);
+  color:rgb(248, 241, 255);
+  padding:10px;
+}
+
+.footer{
+  background-color:rgb(248, 241, 255);
+  color:rgb(26, 26, 26);
+  padding-left: 50px;
+}
+
+.book-cover__cart{
+  width: 30px;
+}
+
+.book-list__cart{
+  display: grid;
+  gap:20px;
+  padding:20px;
+}
+
+.single-book__cart{
+  display:grid;
+  gap: 20px;
+  grid-auto-flow: column;
+  justify-content: left;
+  font-size: small;
+}
+
+.img-div__cart{
+  width: fit-content;
 }
