@@ -91,6 +91,12 @@ function getCartPriceTotal() {
 
 window.getCartPriceTotal = getCartPriceTotal
 
+function deleteFromCart(bookId:number){
+  fetch(`http://localhost:3005/cartPerUser/${bookId}`, {
+    method: 'DELETE'
+  }).then(() => render())
+}
+
 function postToCart(userId: number, bookId: number) {
   fetch('http://localhost:3005/cartPerUser', {
     method: 'POST',
@@ -149,6 +155,11 @@ function renderCartModal(mainEl: Element) {
     let removeBtn=document.createElement('button')
     removeBtn.className='remove-cart'
     removeBtn.textContent='Remove from Cart'
+    removeBtn.addEventListener('click', function(){
+      console.log('sth is happening')
+      deleteFromCart(item.id)
+      render()
+    })
 
     detailsDiv.append(bookTitle, bookAuthor, bookPrice, removeBtn)
     listCartItem.append(imgDiv, detailsDiv)

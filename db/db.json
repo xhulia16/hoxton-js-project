@@ -235,24 +235,19 @@
   ],
   "cartPerUser": [
     {
-      "id": 1,
-      "userId": 1,
-      "bookId": 3
-    },
-    {
-      "id": 1,
-      "userId": 1,
-      "bookId": 5
-    },
-    {
       "id": 2,
       "userId": 2,
       "bookId": 4
     },
     {
       "userId": 1,
-      "bookId": 4,
-      "id": 3
+      "bookId": 5,
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "bookId": 1,
+      "id": 5
     }
   ]
 }
